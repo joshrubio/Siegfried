@@ -13,8 +13,8 @@ Cinco ideas de proyecto, investigadas a partir de los productos reales y las vac
 ## 1. Common Operational Picture (clon conceptual de la interfaz de operador de su plataforma de C2) — prioridad alta
 Dashboard tipo C2: fusiona feeds simulados (drones, sensores, amenazas) en un mapa en tiempo real con panel de IA que prioriza/recomienda acciones. Stack: Next.js + Mapbox/deck.gl + WebSockets + datos sintéticos (nunca reales). Repo sugerido: `altra-dashboard-concept`.
 
-## 2. Developer Platform Portal con asistente agentic (RAG) — prioridad alta
-Portal self-service: catálogo de servicios, "provisionar entorno", estado de pipelines, chatbot RAG sobre docs. Responde línea por línea a la descripción de su rol de Platform Engineering. Repo sugerido: `dev-platform-portal`. (Siegfried mismo es la primera iteración de este concepto — ver [[project-siegfried]]).
+## 2. Developer Platform Portal con asistente agentic (RAG) — prioridad alta — EN CONSTRUCCIÓN
+Portal self-service: catálogo de servicios, "provisionar entorno", estado de pipelines, chatbot RAG sobre docs. Responde línea por línea a la descripción de su rol de Platform Engineering. Repo: `dev-platform-portal`. (Siegfried mismo es la primera iteración de este concepto — ver [[project-siegfried]]). Spec completa: [[dev-platform-portal]].
 
 ## 3. Clasificador/visor de firmas acústicas submarinas (inspirado en su sistema de vigilancia acústica submarina)
 Usa dataset público real **ShipsEar** (grabaciones en costa atlántica de España) o **DeepShip**. Visor de espectrograma + confianza de clasificación. Honesto: no se pretende ser ingeniero de ML, se construye la capa de interpretación/UX del output del modelo. Repo sugerido: `lura-acoustic-viewer`.
@@ -27,4 +27,4 @@ Mapa para definir waypoints, cobertura y simular coordinación multi-dron. Visua
 
 ## Estado de construcción
 
-Ver `projects.json` en la raíz para el registro vivo de repos/URLs/estado de cada uno.
+Ver la tabla `satellite_projects` en Supabase (vía el dashboard de Siegfried, `/projects/<slug>`) para el registro vivo de repos/URLs/estado de cada uno.
