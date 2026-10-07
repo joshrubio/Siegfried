@@ -1,31 +1,25 @@
-import { notFound } from "next/navigation";
-import Link from "next/link";
-import ReactMarkdown from "react-markdown";
-import { getNote } from "@/lib/vault";
+import { Suspense } from "react";
+import VaultNote from "@/components/VaultNote";
+import { Skeleton } from "@/components/ui/skeleton";
 
-export default async function NotePage({
+export default function NotePage({
   params,
 }: {
   params: Promise<{ slug: string[] }>;
 }) {
-  const { slug } = await params;
-  const note = getNote(slug.join("/"));
-  if (!note) notFound();
-
   return (
-    <main className="min-h-screen max-w-3xl mx-auto px-6 py-10">
-      <Link href="/" className="text-sm text-neutral-500 hover:underline">
-        ← Siegfried
-      </Link>
-      <h1 className="text-2xl font-semibold mt-4">{note.frontmatter.title}</h1>
-      <div className="flex gap-2 mt-2 text-xs text-neutral-500">
-        <span>{note.frontmatter.type}</span>
-        {note.frontmatter.project && <span>· {note.frontmatter.project}</span>}
-        {note.frontmatter.status && <span>· {note.frontmatter.status}</span>}
-      </div>
-      <article className="prose dark:prose-invert mt-8 max-w-none">
-        <ReactMarkdown>{note.content}</ReactMarkdown>
-      </article>
+    <main className="max-w-3xl px-8 py-10">
+      <Suspense
+        fallback={
+          <div>
+            <Skeleton className="h-8 w-80" />
+            <Skeleton className="h-4 w-40 mt-3" />
+            <Skeleton className="h-64 w-full mt-8" />
+          </div>
+        }
+      >
+        <VaultNote params={params} />
+      </Suspense>
     </main>
   );
 }

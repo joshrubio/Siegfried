@@ -1,6 +1,11 @@
 "use client";
 
 import { useState } from "react";
+import { Search, Loader2 } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 
 type Result = {
   note_path: string;
@@ -39,43 +44,43 @@ export default function SearchBox() {
   return (
     <div>
       <form onSubmit={runSearch} className="flex gap-2">
-        <input
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          placeholder="Pregunta algo sobre el vault…"
-          className="flex-1 rounded-md border border-neutral-300 dark:border-neutral-700 bg-transparent px-3 py-2 text-sm"
-        />
-        <button
-          type="submit"
-          disabled={loading}
-          className="rounded-md bg-neutral-900 text-white dark:bg-white dark:text-neutral-900 px-4 py-2 text-sm disabled:opacity-50"
-        >
-          {loading ? "Buscando…" : "Buscar"}
-        </button>
+        <div className="relative flex-1">
+          <Search className="absolute left-2.5 top-2.5 size-4 text-muted-foreground" />
+          <Input
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Pregunta algo sobre el vault…"
+            className="pl-8"
+          />
+        </div>
+        <Button type="submit" disabled={loading}>
+          {loading && <Loader2 className="size-4 animate-spin" />}
+          Buscar
+        </Button>
       </form>
 
-      {error && <p className="text-sm text-red-500 mt-2">{error}</p>}
+      {error && <p className="text-sm text-destructive mt-3">{error}</p>}
 
       {results && (
-        <ul className="mt-4 grid gap-2">
+        <div className="mt-4 grid gap-2">
           {results.map((r, i) => (
-            <li
-              key={`${r.note_path}-${i}`}
-              className="rounded-md border border-neutral-200 dark:border-neutral-800 p-3"
-            >
-              <div className="text-sm font-medium">{r.title}</div>
-              <p className="text-xs text-neutral-500 mt-1 line-clamp-3">
-                {r.content}
-              </p>
-              <div className="text-xs text-neutral-400 mt-1">
-                {r.note_path} · {(r.similarity * 100).toFixed(0)}% similar
-              </div>
-            </li>
+            <Card key={`${r.note_path}-${i}`}>
+              <CardContent>
+                <div className="flex items-center justify-between gap-2">
+                  <span className="text-sm font-medium">{r.title}</span>
+                  <Badge variant="secondary" className="shrink-0 tabular-nums">
+                    {(r.similarity * 100).toFixed(0)}%
+                  </Badge>
+                </div>
+                <p className="text-xs text-muted-foreground mt-1 line-clamp-3">{r.content}</p>
+                <p className="text-xs text-muted-foreground/70 mt-2 font-mono">{r.note_path}</p>
+              </CardContent>
+            </Card>
           ))}
           {results.length === 0 && (
-            <li className="text-sm text-neutral-500">Sin resultados.</li>
+            <p className="text-sm text-muted-foreground">Sin resultados.</p>
           )}
-        </ul>
+        </div>
       )}
     </div>
   );
