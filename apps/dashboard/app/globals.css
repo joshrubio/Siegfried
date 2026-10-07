@@ -173,3 +173,53 @@
 .animate-blob-b {
   animation: blob-drift-b 18s ease-in-out infinite;
 }
+
+@keyframes reticle-pulse {
+  0%, 100% {
+    opacity: 0.45;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1.06);
+  }
+}
+
+.animate-reticle-pulse {
+  animation: reticle-pulse 2.6s ease-in-out infinite;
+}
+
+@keyframes label-flicker {
+  0%, 60% {
+    opacity: 0.2;
+  }
+  68% {
+    opacity: 0.85;
+  }
+  76% {
+    opacity: 0.2;
+  }
+  84% {
+    opacity: 0.7;
+  }
+  100% {
+    opacity: 0.2;
+  }
+}
+
+.animate-label-flicker {
+  animation: label-flicker 3.8s ease-in-out infinite;
+}
+
+@keyframes scan-lines {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(9px);
+  }
+}
+
+.animate-scan-lines {
+  animation: scan-lines 5s linear infinite;
+}
