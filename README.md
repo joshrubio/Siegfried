@@ -25,6 +25,6 @@ Cada proyecto de la pool (ver `vault/projects/project-pool.md`) vive en su propi
 ## Supabase
 
 1. Crear un proyecto en Supabase (ya hecho — cuenta conectada a GitHub).
-2. Pegar la `DATABASE_URL` / `SUPABASE_URL` / `SUPABASE_ANON_KEY` / `SUPABASE_SERVICE_ROLE_KEY` en `.env.local`.
-3. Ejecutar `supabase/schema.sql` en el SQL editor del proyecto (activa `pgvector` y crea la tabla `vault_chunks` + la función de búsqueda `match_vault_chunks`).
+2. Pegar `SUPABASE_URL` / `SUPABASE_SECRET_KEY` en `.env.local` — usamos el formato de API key **nuevo** de Supabase (`sb_secret_...`), no el `service_role` JWT legacy que Supabase está deprecando (ver [`vault/decisions/2026-10-07-supabase-key-format.md`](vault/decisions/2026-10-07-supabase-key-format.md)).
+3. Ejecutar `supabase/schema.sql` en el SQL editor del proyecto (activa `pgvector` y crea la tabla `vault_chunks` + la función de búsqueda `match_vault_chunks`). No hace falta connection string — todo pasa por el cliente JS de Supabase (REST/RPC).
 4. Local y producción apuntan a la misma instancia — no hay paso de sincronización manual.
