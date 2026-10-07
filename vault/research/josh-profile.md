@@ -29,6 +29,6 @@ UX Designer & Fullstack Developer. Base en Almería, España.
 - 3D Animator en Vene 3D (2016)
 - Educación: Ingeniería de Sistemas (IUTPJAA, 2014-2017)
 
-## Diferenciador real frente a Helsing
+## Diferenciador real frente a los empleadores investigados
 
-No tiene background en ML research, sistemas embebidos, Rust, ni infraestructura a escala (5+ años AWS/Terraform/K8s que piden las vacantes). **Sí tiene** UX aplicado a interfaces complejas + fullstack + capacidad de integrar IA (LLMs) en productos — ese es el ángulo honesto para cualquier proyecto de portafolio: construir la capa de experiencia/producto sobre un problema de Helsing, no fingir ser su ingeniero de ML o infra.
+No tiene background en ML research, sistemas embebidos, Rust, ni infraestructura a escala (5+ años AWS/Terraform/K8s que piden las vacantes de "Employer A" — ver `vault/private/employer-alias-map.md`). **Sí tiene** UX aplicado a interfaces complejas + fullstack + capacidad de integrar IA (LLMs) en productos — ese es el ángulo honesto para cualquier proyecto de portafolio: construir la capa de experiencia/producto sobre un problema real del empleador, no fingir ser su ingeniero de ML o infra.

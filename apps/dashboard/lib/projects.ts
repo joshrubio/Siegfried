@@ -1,21 +1,80 @@
-import fs from "node:fs";
-import path from "node:path";
+import { getSupabaseServerClient } from "./supabase";
+
+export type Checklist = {
+  scaffolded: boolean;
+  core_feature: boolean;
+  polish: boolean;
+  deployed: boolean;
+  documented: boolean;
+};
+
+export type Stage = "ideation" | "production" | "launched";
 
 export type SatelliteProject = {
   slug: string;
   name: string;
-  vault_note: string;
+  concept: string;
+  vault_note: string | null;
+  stage: Stage;
+  checklist: Checklist;
   repo_url: string | null;
-  local_path: string;
+  local_path: string | null;
   dev_url: string | null;
   deploy_url: string | null;
-  status: "planned" | "in-progress" | "done";
+  position: number;
+  updated_at: string;
 };
 
-const PROJECTS_JSON = path.join(process.cwd(), "..", "..", "projects.json");
+export async function listProjects(): Promise<SatelliteProject[]> {
+  const supabase = getSupabaseServerClient();
+  const { data, error } = await supabase
+    .from("satellite_projects")
+    .select("*")
+    .order("stage", { ascending: true })
+    .order("position", { ascending: true });
 
-export function listProjects(): SatelliteProject[] {
-  if (!fs.existsSync(PROJECTS_JSON)) return [];
-  const raw = fs.readFileSync(PROJECTS_JSON, "utf-8");
-  return (JSON.parse(raw).projects ?? []) as SatelliteProject[];
+  if (error) throw new Error(`listProjects: ${error.message}`);
+  return data as SatelliteProject[];
 }
+
+export async function getProject(slug: string): Promise<SatelliteProject | null> {
+  const supabase = getSupabaseServerClient();
+  const { data, error } = await supabase
+    .from("satellite_projects")
+    .select("*")
+    .eq("slug", slug)
+    .maybeSingle();
+
+  if (error) throw new Error(`getProject: ${error.message}`);
+  return data as SatelliteProject | null;
+}
+
+export async function updateProject(
+  slug: string,
+  patch: Partial<Pick<SatelliteProject, "stage" | "checklist" | "repo_url" | "dev_url" | "deploy_url">>
+): Promise<SatelliteProject> {
+  const supabase = getSupabaseServerClient();
+  const { data, error } = await supabase
+    .from("satellite_projects")
+    .update({ ...patch, updated_at: new Date().toISOString() })
+    .eq("slug", slug)
+    .select()
+    .single();
+
+  if (error) throw new Error(`updateProject: ${error.message}`);
+  return data as SatelliteProject;
+}
+
+export const STAGE_LABELS: Record<Stage, string> = {
+  ideation: "Ideación",
+  production: "Producción",
+  launched: "Lanzamiento",
+};
+
+export const CHECKLIST_LABELS: Record<keyof Checklist, string> = {
+  scaffolded: "Scaffold",
+  core_feature: "Feature núcleo",
+  polish: "Pulido/UX",
+  deployed: "Desplegado",
+  documented: "Documentado",
+};

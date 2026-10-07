@@ -5,6 +5,11 @@ node_modules/
 .DS_Store
 *.log
 
-# Investigación sobre empleadores específicos (Helsing, y cualquier futuro) —
+# Investigación sobre empleadores específicos (alias en vault/private/employer-alias-map.md) —
 # vive en disco para seguir navegándola localmente, pero nunca se sube al repo.
 vault/private/
+
+# Material de estudio para una entrevista real con un empleador específico —
+# usa nombres reales a propósito (es para practicar vocabulario real), por eso
+# nunca se sube, igual que vault/private/.
+guides/

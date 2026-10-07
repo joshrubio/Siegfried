@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "index": "tsx scripts/index.ts"
+    "index": "tsx scripts/index.ts",
+    "seed-projects": "tsx scripts/seed-projects.ts"
   },
   "dependencies": {
     "next": "16.4.0",

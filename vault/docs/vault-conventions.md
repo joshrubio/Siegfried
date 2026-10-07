@@ -13,7 +13,7 @@ updated: 2026-10-07
 ```
 vault/
 ├── research/   # hallazgos de investigación generales (perfil, arquitectura)
-├── private/    # investigación sobre empleadores específicos (p. ej. Helsing) — GITIGNORED,
+├── private/    # investigación sobre empleadores específicos (alias "Employer A", "B"... — ver vault/private/employer-alias-map.md) — GITIGNORED,
 │               # vive solo en disco local, nunca se sube al repo (ver vault/decisions/2026-10-07-private-vault-folder.md)
 ├── projects/   # specs y estado de cada proyecto (pool + siegfried mismo)
 ├── decisions/  # bitácora de decisiones técnicas, una por archivo, fecha en el nombre

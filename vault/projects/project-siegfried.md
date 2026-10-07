@@ -10,7 +10,7 @@ updated: 2026-10-07
 
 ## Qué es
 
-El "control plane" desde el que se investiga, documenta y lanza cada proyecto de la [[project-pool]]. No es un proyecto de la pool — es la base que los sostiene a todos, y en sí mismo es un ejercicio de Platform Engineering (ver [[helsing-dc-job-requirements]]).
+El "control plane" desde el que se investiga, documenta y lanza cada proyecto de la [[project-pool]]. No es un proyecto de la pool — es la base que los sostiene a todos, y en sí mismo es un ejercicio de Platform Engineering (ver la investigación de "Employer A" en `vault/private/`, alias explicado en `vault/private/employer-alias-map.md`).
 
 ## Arquitectura
 
