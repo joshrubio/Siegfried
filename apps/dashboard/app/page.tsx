@@ -29,7 +29,7 @@ export default function Home() {
             <div>
               <h2 className="text-lg font-semibold">Vault</h2>
               <p className="text-sm text-muted-foreground mt-1">
-                Research, decisions and specs — browsable, and searchable from the header.
+                Research, decisions and specs — browse from the sidebar, or search from there too.
               </p>
             </div>
             <ArrowRight className="size-5 text-muted-foreground group-hover:translate-x-0.5 transition-transform" />

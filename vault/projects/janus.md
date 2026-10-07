@@ -1,20 +1,28 @@
 ---
-title: Developer Platform Portal — spec
+title: Janus (Developer Platform Portal) — spec
 type: project
-project: dev-platform-portal
+project: janus
 tags: [idp, rag, agentic, platform-engineering]
 status: in-progress
 created: 2026-10-07
 updated: 2026-10-07
 ---
 
-Proyecto satélite #2 de la [[project-pool]]. Repo propio: `github.com/joshrubio/dev-platform-portal`, carpeta hermana `D:\Coding\dev-platform-portal`.
+Proyecto satélite #2 de la [[project-pool]]. Repo propio: `github.com/joshrubio/Janus`, carpeta hermana `D:\Coding\Janus`.
+
+## Por qué el nombre
+
+Janus — dios romano de las puertas, los umbrales y las transiciones. Encaja literalmente: este proyecto es la puerta de entrada a entornos, servicios y pipelines. Cada proyecto satélite tiene su propio nombre mitológico para que cada uno tenga identidad visual y de marca propia, distinguible de Siegfried a simple vista (ver [[2026-10-07-satellite-identities]]).
 
 ## Qué es
 
 Un Internal Developer Platform (IDP) en miniatura — self-service tooling simulado para un equipo de ingeniería. Responde línea por línea a la descripción real de la vacante de Platform Engineering investigada en `vault/private/`: *"designing and deploying agentic AI workflows to streamline developer activities, infrastructure operations, and platform compliance"*.
 
-Siegfried mismo (ver [[project-siegfried]]) fue la primera iteración de este concepto, aplicado hacia adentro (vault + RAG + registro de proyectos). Este proyecto satélite es la versión aplicada hacia afuera: un portal que un equipo de ingeniería usaría de verdad.
+Siegfried mismo (ver [[project-siegfried]]) fue la primera iteración de este concepto, aplicado hacia adentro (vault + RAG + registro de proyectos). Janus es la versión aplicada hacia afuera: un portal que un equipo de ingeniería usaría de verdad.
+
+## Identidad visual
+
+Deliberadamente opuesta a Siegfried: cálida (crema/terracota) en vez de fría (neutro/violeta), tipografía Plus Jakarta Sans en vez de Geist, esquinas muy redondeadas en vez de moderadas. La intención: "¿y si la herramienta interna de tu empresa no diera pereza usarla?" — contraste máximo frente al tono táctico/serio de Siegfried.
 
 ## Los 4 pilares
 
@@ -33,4 +41,4 @@ Mismo que Siegfried: Next.js (App Router) + TypeScript + Tailwind + shadcn/ui, p
 
 ## Progreso
 
-Ver la card de este proyecto en el dashboard de Siegfried (`/projects/dev-platform-portal`) para el estado operativo vivo (etapa, checklist, links). Esta nota es la spec de contenido; el dashboard es la fuente de verdad del estado.
+Ver la card de este proyecto en el dashboard de Siegfried (`/projects/janus`) para el estado operativo vivo (etapa, checklist, links). Esta nota es la spec de contenido; el dashboard es la fuente de verdad del estado.
