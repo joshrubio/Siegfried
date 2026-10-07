@@ -1,5 +1,5 @@
-// Voyage AI — recomendado por Anthropic para embeddings. voyage-2 => 1024 dims,
-// coincide con la columna `embedding vector(1024)` en supabase/schema.sql.
+// Voyage AI — recomendado por Anthropic para embeddings. voyage-4-lite => 1024 dims
+// por defecto, coincide con la columna `embedding vector(1024)` en supabase/schema.sql.
 const VOYAGE_URL = "https://api.voyageai.com/v1/embeddings";
 
 export async function embed(texts: string[]): Promise<number[][]> {
@@ -14,7 +14,7 @@ export async function embed(texts: string[]): Promise<number[][]> {
       "Content-Type": "application/json",
       Authorization: `Bearer ${apiKey}`,
     },
-    body: JSON.stringify({ input: texts, model: "voyage-2" }),
+    body: JSON.stringify({ input: texts, model: "voyage-4-lite" }),
   });
 
   if (!res.ok) {

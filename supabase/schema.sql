@@ -14,6 +14,10 @@ create table if not exists vault_chunks (
   updated_at timestamptz not null default now()
 );
 
+-- RLS activado, sin policies: bloquea por defecto cualquier acceso vía anon/publishable key.
+-- Nuestro código solo usa la secret key (lib/supabase.ts), que siempre se salta RLS.
+alter table vault_chunks enable row level security;
+
 create index if not exists vault_chunks_embedding_idx
   on vault_chunks using hnsw (embedding vector_cosine_ops);
 
