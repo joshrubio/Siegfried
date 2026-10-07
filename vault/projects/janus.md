@@ -22,7 +22,7 @@ Siegfried mismo (ver [[project-siegfried]]) fue la primera iteración de este co
 
 ## Identidad visual
 
-Deliberadamente opuesta a Siegfried: cálida (crema/terracota) en vez de fría (neutro/violeta), tipografía Plus Jakarta Sans en vez de Geist, esquinas muy redondeadas en vez de moderadas. La intención: "¿y si la herramienta interna de tu empresa no diera pereza usarla?" — contraste máximo frente al tono táctico/serio de Siegfried.
+Base grayscale neutra, igual disciplina que Siegfried — la diferenciación vive en el acento (ámbar, restringido a tab activo/botón primario/puntos de estado, nunca fondos), la tipografía (Fraunces serif itálica para el wordmark + Plus Jakarta Sans para la UI), el layout (tabs horizontales estilo Railway en vez de hero+grid), y el modo por defecto (oscuro, sin sincronizar con el sistema). Diseñado tras un benchmark real de Railway, Linear y Port — no inventado desde cero. Detalle completo y el proceso a repetir para los demás satélites: [[2026-10-07-satellite-identities]].
 
 ## Los 4 pilares
 
