@@ -12,11 +12,17 @@ updated: 2026-10-07
 
 ```
 vault/
-├── research/   # hallazgos de investigación (empresa, productos, vacantes, perfil)
+├── research/   # hallazgos de investigación generales (perfil, arquitectura)
+├── private/    # investigación sobre empleadores específicos (p. ej. Helsing) — GITIGNORED,
+│               # vive solo en disco local, nunca se sube al repo (ver vault/decisions/2026-10-07-private-vault-folder.md)
 ├── projects/   # specs y estado de cada proyecto (pool + siegfried mismo)
 ├── decisions/  # bitácora de decisiones técnicas, una por archivo, fecha en el nombre
 └── docs/       # esta carpeta — documentación de cómo funciona Siegfried mismo
 ```
+
+## Qué va en `private/`
+
+Cualquier nota que investigue a un empleador específico (su stack, sus vacantes, estrategia de entrevista) — no porque sea secreto, sino porque es información de búsqueda de empleo personal que no pertenece en el historial de un repo, ni siquiera privado. Todo lo demás (arquitectura, perfil propio, decisiones técnicas) sigue en el resto del vault y sí se versiona.
 
 ## Frontmatter obligatorio
 

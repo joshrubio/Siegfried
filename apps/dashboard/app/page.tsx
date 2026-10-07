@@ -5,6 +5,7 @@ import SearchBox from "@/components/SearchBox";
 
 const FOLDER_LABELS: Record<string, string> = {
   research: "Investigación",
+  private: "Privado (no en git)",
   projects: "Proyectos",
   decisions: "Decisiones",
   docs: "Docs",

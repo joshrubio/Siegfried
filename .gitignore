@@ -4,3 +4,7 @@ node_modules/
 .env.local
 .DS_Store
 *.log
+
+# Investigación sobre empleadores específicos (Helsing, y cualquier futuro) —
+# vive en disco para seguir navegándola localmente, pero nunca se sube al repo.
+vault/private/
