@@ -66,15 +66,15 @@ export async function updateProject(
 }
 
 export const STAGE_LABELS: Record<Stage, string> = {
-  ideation: "Ideación",
-  production: "Producción",
-  launched: "Lanzamiento",
+  ideation: "Ideation",
+  production: "In production",
+  launched: "Launched",
 };
 
 export const CHECKLIST_LABELS: Record<keyof Checklist, string> = {
-  scaffolded: "Scaffold",
-  core_feature: "Feature núcleo",
-  polish: "Pulido/UX",
-  deployed: "Desplegado",
-  documented: "Documentado",
+  scaffolded: "Scaffolded",
+  core_feature: "Core feature",
+  polish: "Polish/UX",
+  deployed: "Deployed",
+  documented: "Documented",
 };

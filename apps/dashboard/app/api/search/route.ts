@@ -5,7 +5,7 @@ import { embed } from "@/lib/embeddings";
 export async function POST(req: NextRequest) {
   const { query, project, type } = await req.json();
   if (!query || typeof query !== "string") {
-    return NextResponse.json({ error: "Falta 'query'" }, { status: 400 });
+    return NextResponse.json({ error: "Missing 'query'" }, { status: 400 });
   }
 
   const [queryEmbedding] = await embed([query]);

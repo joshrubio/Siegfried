@@ -34,12 +34,12 @@ export default async function ProjectDetail({
             className="inline-flex items-center gap-1.5 text-foreground hover:underline"
           >
             <GitBranch className="size-3.5" />
-            Repositorio
+            Repository
           </a>
         ) : (
           <span className="inline-flex items-center gap-1.5 text-muted-foreground">
             <GitBranch className="size-3.5" />
-            sin repositorio todavía
+            no repository yet
           </span>
         )}
         {project.vault_note && (
@@ -48,7 +48,7 @@ export default async function ProjectDetail({
             className="inline-flex items-center gap-1.5 text-foreground hover:underline"
           >
             <FolderOpen className="size-3.5" />
-            Spec completo en el vault
+            Full spec in the vault
           </Link>
         )}
       </div>
@@ -62,12 +62,12 @@ export default async function ProjectDetail({
         <CardContent>
           {project.deploy_url ? (
             <Button render={<a href={project.deploy_url} target="_blank" />}>
-              Visitar deploy
+              Visit deploy
               <ExternalLink className="size-4" />
             </Button>
           ) : (
             <p className="text-sm text-muted-foreground">
-              Aún no desplegado.
+              Not deployed yet.
               {project.local_path && (
                 <>
                   {" "}
@@ -78,7 +78,7 @@ export default async function ProjectDetail({
           )}
           {project.dev_url && (
             <p className="text-xs text-muted-foreground mt-2">
-              Dev local: <code>{project.dev_url}</code>
+              Local dev: <code>{project.dev_url}</code>
             </p>
           )}
         </CardContent>

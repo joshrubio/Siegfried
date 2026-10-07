@@ -3,7 +3,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
-import Header from "@/components/Header";
+import AppShell from "@/components/AppShell";
+import { listNotes, groupByFolder } from "@/lib/vault";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -17,20 +18,21 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Siegfried",
-  description: "Dashboard operativo + vault con búsqueda RAG",
+  description: "Operational dashboard: a vault with memory and semantic search, plus tracking for every satellite project",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
+  const grouped = groupByFolder(listNotes());
+
   return (
     <html
-      lang="es"
+      lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
       suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-          <Header />
-          <div className="flex-1">{children}</div>
+          <AppShell grouped={grouped}>{children}</AppShell>
           <Toaster position="bottom-right" />
         </ThemeProvider>
       </body>

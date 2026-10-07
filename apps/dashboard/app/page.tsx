@@ -13,7 +13,7 @@ export default function Home() {
 
       <main className="max-w-6xl mx-auto px-6 py-10">
         <section className="mb-10">
-          <h2 className="text-lg font-semibold mb-4">Proyectos</h2>
+          <h2 className="text-lg font-semibold mb-4">Projects</h2>
           <Suspense fallback={<ProjectsGridSkeleton />}>
             <ProjectsSection />
           </Suspense>
@@ -29,7 +29,7 @@ export default function Home() {
             <div>
               <h2 className="text-lg font-semibold">Vault</h2>
               <p className="text-sm text-muted-foreground mt-1">
-                Investigación, decisiones y specs — navegable y con búsqueda semántica.
+                Research, decisions and specs — browsable, and searchable from the header.
               </p>
             </div>
             <ArrowRight className="size-5 text-muted-foreground group-hover:translate-x-0.5 transition-transform" />

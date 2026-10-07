@@ -39,12 +39,12 @@ export default function ProjectCard({ project }: { project: SatelliteProject }) 
           <div className="flex items-center gap-3 text-xs text-muted-foreground">
             <span className="flex items-center gap-1">
               <GitBranch className="size-3" />
-              {project.repo_url ? "repo" : "sin repo"}
+              {project.repo_url ? "repo" : "no repo"}
             </span>
             {project.deploy_url && (
               <span className="flex items-center gap-1">
                 <ExternalLink className="size-3" />
-                desplegado
+                deployed
               </span>
             )}
           </div>

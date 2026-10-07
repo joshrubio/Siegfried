@@ -28,7 +28,7 @@ export default function ProjectOperations({ project }: { project: SatelliteProje
       toast.success(successMessage);
       router.refresh();
     } catch (err) {
-      toast.error(err instanceof Error ? err.message : "No se pudo guardar");
+      toast.error(err instanceof Error ? err.message : "Couldn't save");
     } finally {
       setSaving(false);
     }
@@ -38,7 +38,7 @@ export default function ProjectOperations({ project }: { project: SatelliteProje
     <div className="grid gap-6">
       <div>
         <h3 className="text-xs font-medium uppercase tracking-wide text-muted-foreground mb-2">
-          Etapa
+          Stage
         </h3>
         <div className="flex gap-2">
           {STAGES.map((stage) => (
@@ -47,7 +47,7 @@ export default function ProjectOperations({ project }: { project: SatelliteProje
               size="sm"
               disabled={saving}
               variant={project.stage === stage ? "default" : "outline"}
-              onClick={() => patch({ stage }, `Etapa actualizada a ${STAGE_LABELS[stage]}`)}
+              onClick={() => patch({ stage }, `Stage updated to ${STAGE_LABELS[stage]}`)}
             >
               {STAGE_LABELS[stage]}
             </Button>
@@ -57,7 +57,7 @@ export default function ProjectOperations({ project }: { project: SatelliteProje
 
       <div>
         <h3 className="text-xs font-medium uppercase tracking-wide text-muted-foreground mb-2">
-          Checklist de producción
+          Production checklist
         </h3>
         <ul className="grid gap-2">
           {CHECKLIST_KEYS.map((key) => (
@@ -69,7 +69,7 @@ export default function ProjectOperations({ project }: { project: SatelliteProje
                 onCheckedChange={(checked) =>
                   patch(
                     { checklist: { ...project.checklist, [key]: checked === true } },
-                    `${CHECKLIST_LABELS[key]} ${checked ? "marcado" : "desmarcado"}`
+                    `${CHECKLIST_LABELS[key]} ${checked ? "checked" : "unchecked"}`
                   )
                 }
               />
