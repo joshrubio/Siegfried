@@ -1,22 +1,21 @@
 "use client";
 
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import {
   BookOpen,
   Lock,
   FolderKanban,
   GitCommitVertical,
   FileText,
-  PanelLeftClose,
-  PanelLeftOpen,
   X,
   type LucideIcon,
 } from "lucide-react";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import SearchBox from "@/components/SearchBox";
 import type { Note } from "@/lib/vault";
 
 const FOLDER_META: Record<string, { label: string; icon: LucideIcon }> = {
@@ -32,8 +31,6 @@ const STATUS_VARIANT: Record<string, "default" | "secondary" | "outline"> = {
   "in-progress": "secondary",
   final: "outline",
 };
-
-const COLLAPSE_KEY = "siegfried:vault-sidebar-collapsed";
 
 function SidebarContent({
   folders,
@@ -52,9 +49,25 @@ function SidebarContent({
   activeSlug: string | null;
   onNavigate?: () => void;
 }) {
+  const router = useRouter();
+
   return (
     <>
-      <Tabs value={folder} onValueChange={setFolder} orientation="vertical">
+      <p className="text-xs text-muted-foreground px-2 leading-relaxed">
+        Research, decisions and specs — the working memory behind every satellite
+        project, indexed for semantic search.
+      </p>
+
+      <div className="mt-3 px-2">
+        <SearchBox
+          onResult={(slug) => {
+            router.push(`/vault/${slug}`);
+            onNavigate?.();
+          }}
+        />
+      </div>
+
+      <Tabs value={folder} onValueChange={setFolder} orientation="vertical" className="mt-3">
         <TabsList variant="line" className="w-full items-stretch gap-0.5 p-0">
           {folders.map((f) => {
             const meta = FOLDER_META[f] ?? { label: f, icon: FileText };
@@ -114,79 +127,64 @@ export default function VaultSidebar({
   const folders = useMemo(() => Object.keys(grouped), [grouped]);
   const defaultFolder = (activeSlug?.split("/")[0]) ?? folders[0];
   const [folder, setFolder] = useState(defaultFolder);
-  const [collapsed, setCollapsed] = useState(false);
-
-  useEffect(() => {
-    try {
-      setCollapsed(localStorage.getItem(COLLAPSE_KEY) === "1");
-    } catch {}
-  }, []);
-
-  function toggleCollapsed() {
-    setCollapsed((prev) => {
-      const next = !prev;
-      try {
-        localStorage.setItem(COLLAPSE_KEY, next ? "1" : "0");
-      } catch {}
-      return next;
-    });
-  }
+  const [hovered, setHovered] = useState(false);
 
   const notes = grouped[folder] ?? [];
 
   return (
     <>
-      {/* Desktop: collapsible rail or full sidebar, always visible at md+ */}
-      {collapsed ? (
-        <aside className="hidden md:flex w-12 shrink-0 border-r h-[calc(100vh-56px)] sticky top-14 overflow-y-auto flex-col items-center py-3 gap-1">
-          <Button variant="ghost" size="icon" aria-label="Expand vault" onClick={toggleCollapsed}>
-            <PanelLeftOpen className="size-4" />
-          </Button>
-          {folders.map((f) => {
-            const meta = FOLDER_META[f] ?? { label: f, icon: FileText };
-            const Icon = meta.icon;
-            return (
-              <Button
-                key={f}
-                variant="ghost"
-                size="icon"
-                aria-label={meta.label}
-                title={meta.label}
-                className={folder === f ? "bg-muted" : undefined}
-                onClick={() => {
-                  setFolder(f);
-                  toggleCollapsed();
-                }}
-              >
-                <Icon className="size-4" />
-              </Button>
-            );
-          })}
-        </aside>
-      ) : (
-        <aside className="hidden md:block w-64 shrink-0 border-r h-[calc(100vh-56px)] sticky top-14 overflow-y-auto">
-          <div className="p-3">
-            <div className="flex items-center justify-between mb-1">
+      {/* Desktop: narrow rail that expands into an overlay panel on hover */}
+      <div
+        className="hidden md:block relative z-20 w-12 shrink-0 h-[calc(100vh-56px)] sticky top-14"
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
+      >
+        <aside
+          className={`absolute inset-y-0 left-0 bg-background border-r overflow-y-auto transition-[width] duration-150 ease-out z-20 ${
+            hovered ? "w-72 shadow-xl" : "w-12"
+          }`}
+        >
+          {hovered ? (
+            <div className="p-3">
               <span className="text-xs font-medium uppercase tracking-wide text-muted-foreground pl-2">
                 Vault
               </span>
-              <Button variant="ghost" size="icon" aria-label="Collapse vault" onClick={toggleCollapsed}>
-                <PanelLeftClose className="size-4" />
-              </Button>
+              <div className="mt-2">
+                <SidebarContent
+                  folders={folders}
+                  folder={folder}
+                  setFolder={setFolder}
+                  grouped={grouped}
+                  notes={notes}
+                  activeSlug={activeSlug}
+                />
+              </div>
             </div>
-            <SidebarContent
-              folders={folders}
-              folder={folder}
-              setFolder={setFolder}
-              grouped={grouped}
-              notes={notes}
-              activeSlug={activeSlug}
-            />
-          </div>
+          ) : (
+            <div className="flex flex-col items-center py-3 gap-1">
+              {folders.map((f) => {
+                const meta = FOLDER_META[f] ?? { label: f, icon: FileText };
+                const Icon = meta.icon;
+                return (
+                  <Button
+                    key={f}
+                    variant="ghost"
+                    size="icon"
+                    aria-label={meta.label}
+                    title={meta.label}
+                    className={folder === f ? "bg-muted" : undefined}
+                    onClick={() => setFolder(f)}
+                  >
+                    <Icon className="size-4" />
+                  </Button>
+                );
+              })}
+            </div>
+          )}
         </aside>
-      )}
+      </div>
 
-      {/* Mobile: off-canvas drawer, independent of the desktop collapse preference */}
+      {/* Mobile: off-canvas drawer, triggered from the header hamburger */}
       {mobileOpen && (
         <div
           className="md:hidden fixed inset-0 bg-black/40 z-30"
@@ -200,7 +198,7 @@ export default function VaultSidebar({
         }`}
       >
         <div className="p-3">
-          <div className="flex items-center justify-between mb-1 h-8">
+          <div className="flex items-center justify-between mb-2 h-8">
             <span className="text-xs font-medium uppercase tracking-wide text-muted-foreground pl-2">
               Vault
             </span>

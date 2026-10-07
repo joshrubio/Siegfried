@@ -5,7 +5,6 @@ import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 import { Moon, Sun, Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import SearchBox from "@/components/SearchBox";
 
 export default function Header({ onMenuClick }: { onMenuClick?: () => void }) {
   const { setTheme, resolvedTheme } = useTheme();
@@ -29,9 +28,7 @@ export default function Header({ onMenuClick }: { onMenuClick?: () => void }) {
         <Link href="/" className="font-semibold tracking-tight shrink-0">
           Siegfried
         </Link>
-        <div className="flex-1 flex justify-center min-w-0">
-          <SearchBox />
-        </div>
+        <div className="flex-1" />
         {mounted && (
           <Button
             variant="ghost"
