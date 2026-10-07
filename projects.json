@@ -1,0 +1,54 @@
+{
+  "projects": [
+    {
+      "slug": "altra-dashboard-concept",
+      "name": "Common Operational Picture (Altra concept)",
+      "vault_note": "project-pool",
+      "repo_url": null,
+      "local_path": "../altra-dashboard-concept",
+      "dev_url": null,
+      "deploy_url": null,
+      "status": "planned"
+    },
+    {
+      "slug": "dev-platform-portal",
+      "name": "Developer Platform Portal (agentic)",
+      "vault_note": "project-pool",
+      "repo_url": null,
+      "local_path": "../dev-platform-portal",
+      "dev_url": null,
+      "deploy_url": null,
+      "status": "planned"
+    },
+    {
+      "slug": "lura-acoustic-viewer",
+      "name": "Lura acoustic signature viewer",
+      "vault_note": "project-pool",
+      "repo_url": null,
+      "local_path": "../lura-acoustic-viewer",
+      "dev_url": null,
+      "deploy_url": null,
+      "status": "planned"
+    },
+    {
+      "slug": "compliance-assistant-demo",
+      "name": "CMMC/NIST compliance assistant",
+      "vault_note": "project-pool",
+      "repo_url": null,
+      "local_path": "../compliance-assistant-demo",
+      "dev_url": null,
+      "deploy_url": null,
+      "status": "planned"
+    },
+    {
+      "slug": "swarm-mission-planner",
+      "name": "Drone swarm mission planner",
+      "vault_note": "project-pool",
+      "repo_url": null,
+      "local_path": "../swarm-mission-planner",
+      "dev_url": null,
+      "deploy_url": null,
+      "status": "planned"
+    }
+  ]
+}
