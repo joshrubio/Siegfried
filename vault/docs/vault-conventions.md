@@ -5,7 +5,7 @@ project: siegfried
 tags: [docs, conventions, frontmatter]
 status: active
 created: 2026-10-07
-updated: 2026-10-07
+updated: 2026-10-08
 ---
 
 ## Estructura de carpetas
@@ -51,4 +51,4 @@ source_urls:          # opcional, solo si type: research
 - Vault de Siegfried: todo lo que es investigación, decisión o contexto *compartido* entre proyectos, o sobre Siegfried mismo.
 - Repo del proyecto satélite: todo lo que es específico de ESE proyecto una vez empieza a construirse (su propio README, su propia carpeta `docs/` si la necesita, su código).
 
-Esta carpeta (`docs/`) se va completando a medida que Siegfried crece — el siguiente documento a escribir es cómo funciona el indexador RAG en cuanto exista (`apps/dashboard` + script de indexado).
+Esta carpeta (`docs/`) se va completando a medida que Siegfried crece. Ver [[rag-indexing]] para cómo funciona el indexador RAG, y [[satellite-engineering-patterns]] para los patrones técnicos y de diseño que se repiten entre proyectos satélite (Cache Components, sidebars plegables, datos precalculados, trampas de lint, benchmark de identidad visual).

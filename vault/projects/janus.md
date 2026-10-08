@@ -3,9 +3,9 @@ title: Janus (Developer Platform Portal) — spec
 type: project
 project: janus
 tags: [idp, rag, agentic, platform-engineering]
-status: in-progress
+status: active
 created: 2026-10-07
-updated: 2026-10-07
+updated: 2026-10-08
 ---
 
 Proyecto satélite #2 de la [[project-pool]]. Repo propio: `github.com/joshrubio/Janus`, carpeta hermana `D:\Coding\Janus`.
