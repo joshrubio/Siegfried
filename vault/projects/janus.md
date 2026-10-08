@@ -22,14 +22,22 @@ Siegfried mismo (ver [[project-siegfried]]) fue la primera iteración de este co
 
 ## Identidad visual
 
-Base grayscale neutra, igual disciplina que Siegfried — la diferenciación vive en el acento (ámbar, restringido a tab activo/botón primario/puntos de estado, nunca fondos), la tipografía (Fraunces serif itálica para el wordmark + Plus Jakarta Sans para la UI), el layout (tabs horizontales estilo Railway en vez de hero+grid), y el modo por defecto (oscuro, sin sincronizar con el sistema). Diseñado tras un benchmark real de Railway, Linear y Port — no inventado desde cero. Detalle completo y el proceso a repetir para los demás satélites: [[2026-10-07-satellite-identities]].
+Base grayscale neutra, igual disciplina que Siegfried — la diferenciación vive en el acento (ámbar, restringido a estado activo/botón primario/puntos de estado, nunca fondos), la tipografía (Fraunces serif itálica para el wordmark + Plus Jakarta Sans para la UI), y el modo por defecto (oscuro, sin sincronizar con el sistema). Diseñado tras un benchmark real de Railway, Linear y Port (estructura del dashboard de pipelines) y, más tarde, de un dashboard CRM de referencia (estructura de la home) — nunca inventado desde cero ni copiado al pie de la letra, solo la gramática estructural. Detalle completo y el proceso a repetir para los demás satélites: [[2026-10-07-satellite-identities]] y [[satellite-engineering-patterns]].
+
+## Navegación y layout (revisado tras el primer pase)
+
+El layout original (tabs horizontales + sin home propia) se reemplazó por uno más cercano a una IDP real:
+
+- **Header**: Catalog, Provisioning y Pipelines como nav persistente, junto al buscador (⌘K) y el wordmark.
+- **Home (`/`)**: un dashboard de verdad — stat cards con deltas, el gráfico de runs/día, desglose de servicios y confiabilidad, accesos directos a los 4 servicios. Comprimido en dos columnas (stat cards + chart a la izquierda, Services + Reliability apilados a la derecha) para que se pueda escanear sin hacer scroll.
+- **Assistant**: ya no es una quinta pestaña — es un rail de 48px que se expande con hover y se superpone al contenido (mismo patrón que el `VaultSidebar` de Siegfried, documentado en [[satellite-engineering-patterns]]), sin botón de cerrar. Sigue respondiendo a "Open Assistant" desde ⌘K y al tile del dashboard.
 
 ## Los 4 pilares
 
 1. **Catálogo de servicios** — lista de "servicios internos" simulados (nombre, owner, stack, estado, docs). El feature núcleo más simple de demostrar primero.
 2. **Provisionar entorno (self-service)** — formulario que simula aprovisionar infraestructura (elegir servicio + tipo de entorno → log de progreso simulado → URL/credenciales de salida). Nunca toca infraestructura real — es honesto sobre ser una simulación de UX, no un motor real de IaC.
 3. **Estado de pipelines** — vista de CI/CD simulada (runs con estado success/failed/running).
-4. **Chatbot agentic (RAG) sobre docs internas** — reutiliza el mismo patrón ya construido en Siegfried (Supabase + pgvector + Voyage embeddings), mismo stack dentro aplicado a la documentación de ESTE proyecto.
+4. **Chatbot agentic (RAG) sobre docs internas** — reutiliza el mismo patrón ya construido en Siegfried (Supabase + pgvector + Voyage embeddings), mismo stack dentro aplicado a la documentación de ESTE proyecto. Vive en el sidebar de Assistant, no en una ruta propia.
 
 ## Honestidad del alcance
 
