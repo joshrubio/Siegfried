@@ -9,6 +9,7 @@ import {
   FolderKanban,
   GitCommitVertical,
   FileText,
+  Search,
   X,
   type LucideIcon,
 } from "lucide-react";
@@ -121,6 +122,7 @@ export default function VaultSidebar({
   mobileOpen?: boolean;
   onCloseMobile?: () => void;
 }) {
+  const router = useRouter();
   const pathname = usePathname();
   const activeSlug = pathname.startsWith("/vault/") ? pathname.replace("/vault/", "") : null;
 
@@ -133,50 +135,117 @@ export default function VaultSidebar({
 
   return (
     <>
-      {/* Desktop: narrow rail that expands into an overlay panel on hover */}
+      {/* Desktop: narrow rail that expands into an overlay panel on hover.
+          The header is a fixed-height zone in both states (icon-only vs. full
+          search box), and the folder row sits at the same fixed offset below
+          it either way — otherwise the title/description/searchbox that only
+          exist in the expanded state push the folder icons down and the row
+          visibly jumps on hover. */}
       <div
         className="hidden md:block relative z-20 w-12 shrink-0 h-[calc(100vh-56px)] sticky top-14"
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
       >
         <aside
-          className={`absolute inset-y-0 left-0 bg-background border-r overflow-y-auto transition-[width] duration-150 ease-out z-20 ${
+          className={`absolute inset-y-0 left-0 bg-background border-r overflow-y-auto transition-[width] duration-150 ease-out z-20 flex flex-col ${
             hovered ? "w-72 shadow-xl" : "w-12"
           }`}
         >
-          {hovered ? (
-            <div className="p-3">
-              <span className="text-xs font-medium uppercase tracking-wide text-muted-foreground pl-2">
-                Vault
-              </span>
-              <div className="mt-2">
-                <SidebarContent
-                  folders={folders}
-                  folder={folder}
-                  setFolder={setFolder}
-                  grouped={grouped}
-                  notes={notes}
-                  activeSlug={activeSlug}
+          <div className="h-28 shrink-0 flex flex-col justify-center px-3">
+            {hovered ? (
+              <div className="space-y-2">
+                <span className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+                  Vault
+                </span>
+                <p className="text-xs text-muted-foreground leading-relaxed line-clamp-2">
+                  Research, decisions and specs — the working memory behind every satellite
+                  project, indexed for semantic search.
+                </p>
+                <SearchBox
+                  onResult={(slug) => {
+                    router.push(`/vault/${slug}`);
+                  }}
                 />
               </div>
-            </div>
-          ) : (
-            <div className="flex flex-col items-center py-3 gap-1">
-              {folders.map((f) => {
-                const meta = FOLDER_META[f] ?? { label: f, icon: FileText };
-                const Icon = meta.icon;
+            ) : (
+              <div className="flex justify-center">
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  aria-label="Search the vault"
+                  title="Search the vault"
+                  onClick={() => setHovered(true)}
+                >
+                  <Search className="size-4" />
+                </Button>
+              </div>
+            )}
+          </div>
+
+          <div className="pt-48 shrink-0">
+            {hovered ? (
+              <div className="px-2">
+                <Tabs value={folder} onValueChange={setFolder} orientation="vertical">
+                  <TabsList variant="line" className="w-full items-stretch gap-0.5 p-0">
+                    {folders.map((f) => {
+                      const meta = FOLDER_META[f] ?? { label: f, icon: FileText };
+                      const Icon = meta.icon;
+                      return (
+                        <TabsTrigger key={f} value={f} className="gap-2">
+                          <Icon className="size-4" />
+                          {meta.label}
+                          <span className="ml-auto text-xs text-muted-foreground">{grouped[f].length}</span>
+                        </TabsTrigger>
+                      );
+                    })}
+                  </TabsList>
+                </Tabs>
+              </div>
+            ) : (
+              <div className="flex flex-col items-center gap-1">
+                {folders.map((f) => {
+                  const meta = FOLDER_META[f] ?? { label: f, icon: FileText };
+                  const Icon = meta.icon;
+                  return (
+                    <Button
+                      key={f}
+                      variant="ghost"
+                      size="icon"
+                      aria-label={meta.label}
+                      title={meta.label}
+                      className={folder === f ? "bg-muted" : undefined}
+                      onClick={() => setFolder(f)}
+                    >
+                      <Icon className="size-4" />
+                    </Button>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+
+          {hovered && (
+            <div className="px-2 pb-4 mt-1 overflow-y-auto">
+              {notes.map((note) => {
+                const isActive = note.slug === activeSlug;
                 return (
-                  <Button
-                    key={f}
-                    variant="ghost"
-                    size="icon"
-                    aria-label={meta.label}
-                    title={meta.label}
-                    className={folder === f ? "bg-muted" : undefined}
-                    onClick={() => setFolder(f)}
+                  <Link
+                    key={note.slug}
+                    href={`/vault/${note.slug}`}
+                    className={`flex items-center justify-between gap-2 rounded-md px-3 py-2 text-sm transition-colors ${
+                      isActive ? "bg-foreground text-background" : "hover:bg-muted"
+                    }`}
                   >
-                    <Icon className="size-4" />
-                  </Button>
+                    <span className="line-clamp-1">{note.frontmatter.title}</span>
+                    {note.frontmatter.status && !isActive && (
+                      <Badge
+                        variant={STATUS_VARIANT[note.frontmatter.status] ?? "outline"}
+                        className="shrink-0 text-[10px] px-1.5"
+                      >
+                        {note.frontmatter.status}
+                      </Badge>
+                    )}
+                  </Link>
                 );
               })}
             </div>
