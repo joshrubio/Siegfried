@@ -4,6 +4,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
 import AppShell from "@/components/AppShell";
+import Footer from "@/components/Footer";
 import { listNotes, groupByFolder } from "@/lib/vault";
 
 const geistSans = Geist({
@@ -33,6 +34,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body className="min-h-full flex flex-col">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
           <AppShell grouped={grouped}>{children}</AppShell>
+          <Footer />
           <Toaster position="bottom-right" />
         </ThemeProvider>
       </body>
