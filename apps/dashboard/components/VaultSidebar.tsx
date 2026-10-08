@@ -182,7 +182,7 @@ export default function VaultSidebar({
             )}
           </div>
 
-          <div className="pt-48 shrink-0">
+          <div className="pt-3 shrink-0">
             {hovered ? (
               <div className="px-2">
                 <Tabs value={folder} onValueChange={setFolder} orientation="vertical">
