@@ -1,10 +1,10 @@
--- Registro operativo de los proyectos satélite (reemplaza projects.json como
--- fuente de verdad — local y un futuro deploy en la nube comparten el mismo estado).
+-- Operational record of the satellite projects (replaces projects.json as the
+-- source of truth — local and a future cloud deploy share the same state).
 create table if not exists satellite_projects (
   slug text primary key,
   name text not null,
-  concept text not null,            -- resumen corto para la card del dashboard
-  vault_note text,                  -- nota del vault con el spec completo
+  concept text not null,            -- short summary for the dashboard card
+  vault_note text,                  -- vault note with the full spec
   stage text not null default 'ideation'
     check (stage in ('ideation', 'production', 'launched')),
   checklist jsonb not null default '{

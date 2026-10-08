@@ -1,5 +1,5 @@
 ---
-title: Decisión — nombre mitológico + identidad visual propia por proyecto satélite
+title: Decision — a mythological name + its own visual identity per satellite project
 type: decision
 project: siegfried
 tags: [naming, design-system, satellite-projects, design-process]
@@ -8,45 +8,45 @@ created: 2026-10-07
 updated: 2026-10-08
 ---
 
-## Decisión
+## Decision
 
-Cada proyecto satélite tiene (a) un nombre propio de mitología, siguiendo el patrón ya establecido por "Siegfried" (héroe de la mitología nórdica/germánica), y (b) una identidad visual deliberadamente distinta de Siegfried y del resto — construida sobre una **base monocromática compartida**, diferenciada vía acento/tipografía/forma/layout, nunca vía "repintar la paleta".
+Each satellite project gets (a) its own mythological name, following the pattern already set by "Siegfried" (a hero from Norse/Germanic mythology), and (b) a visual identity deliberately distinct from Siegfried and from the others — built on a **shared monochrome base**, differentiated via accent/typography/shape/layout, never via "repainting the palette."
 
-| Slug | Nombre | Proyecto | Mitología |
+| Slug | Name | Project | Mythology |
 |---|---|---|---|
-| `argus` | Argus | Common Operational Picture | Griega — el gigante de cien ojos, vigilancia total |
-| `janus` | Janus | Developer Platform Portal | Romana — dios de las puertas y transiciones |
-| `siren` | Siren | Visor de firmas acústicas submarinas | Griega — sirenas, conocidas por su canto |
-| `themis` | Themis | Asistente de cumplimiento CMMC/NIST | Griega — diosa de la ley y la justicia |
-| `athena` | Athena | Planificador de misión de enjambre de drones | Griega — diosa de la guerra estratégica |
+| `argus` | Argus | Common Operational Picture | Greek — the hundred-eyed giant, total surveillance |
+| `janus` | Janus | Developer Platform Portal | Roman — god of gates and transitions |
+| `siren` | Siren | Underwater acoustic-signature viewer | Greek — sirens, known for their song |
+| `themis` | Themis | CMMC/NIST compliance assistant | Greek — goddess of divine law and justice |
+| `athena` | Athena | Drone swarm mission planner | Greek — goddess of strategic warfare |
 
-## Por qué
+## Why
 
-1. **Naming**: "Developer Platform Portal" es un nombre genérico sin personalidad, inconsistente con "Siegfried". Un nombre propio por proyecto refuerza que cada uno es una pieza de producto con identidad, no una demo intercambiable.
-2. **Identidad visual, intento 1 (incorrecto)**: la primera versión de Janus solo cambió la paleta de color (tema cálido crema/terracota en vez del neutro/violeta de Siegfried). El usuario corrigió esto: repintar el fondo/cards/bordes de un color a otro no es diseñar una identidad, es un reskin. Además rompe la coherencia de familia — si cada app tiene una base de color distinta, el portafolio deja de sentirse como obra de un mismo diseñador con criterio.
-3. **Identidad visual, intento 2 (correcto) — el marco**:
-   - **Base compartida**: grayscale neutro (mismos tokens de disciplina que Siegfried) en todas las apps. Esto es lo que las mantiene "de la misma familia".
-   - **Diferenciación real** vía: (a) un acento usado solo en señales funcionales — botón primario, focus ring, estado activo, nunca como fondo de superficie; (b) tipografía propia; (c) lenguaje de forma específico (no "más redondeado" en general, sino una metáfora de forma concreta); (d) arquitectura de layout distinta (no el mismo patrón recoloreado); (e) personalidad de movimiento.
+1. **Naming**: "Developer Platform Portal" is a generic, personality-free name, inconsistent with "Siegfried." A proper name per project reinforces that each one is a product with its own identity, not an interchangeable demo.
+2. **Visual identity, attempt 1 (wrong)**: the first version of Janus only changed the color palette (a warm cream/terracotta theme instead of Siegfried's neutral/violet). The user corrected this: repainting the background/cards/borders from one color to another isn't designing an identity, it's a reskin. It also breaks the family's coherence — if every app has a different color base, the portfolio stops feeling like the work of one designer with a point of view.
+3. **Visual identity, attempt 2 (right) — the framework**:
+   - **Shared base**: neutral grayscale (the same discipline tokens as Siegfried) across every app. This is what keeps them "in the same family."
+   - **Real differentiation** via: (a) an accent used only for functional signals — primary button, focus ring, active state, never as a surface fill; (b) its own typography; (c) a specific shape language (not "rounder" in general, but a concrete shape metaphor); (d) a distinct layout architecture (not the same pattern recolored); (e) a motion personality.
 
-## El proceso: benchmark antes de diseñar
+## The process: benchmark before designing
 
-Para Janus, en vez de inventar el lenguaje de forma/layout desde cero, se investigaron 3 productos reales del dominio (self-service developer tooling) **con capturas de pantalla reales**, no de memoria:
+For Janus, instead of inventing the shape/layout language from scratch, 3 real products in the domain (self-service developer tooling) were researched **with real screenshots**, not from memory:
 
-- **Railway** (railway.com) — el más cercano funcionalmente. Patrón real: breadcrumb de proyecto/entorno + **tabs horizontales** por sección (Architecture/Observability/Logs/Settings), servicios como nodos en un canvas, un solo acento vivo (violeta) restringido al CTA primario y el estado activo, headline de marketing en serif contrastando con UI de producto en sans.
-- **Linear** (linear.app) — la referencia de disciplina de interfaz. Sidebar simple, base casi negra, el color aparece *solo* en señales funcionales puntuales (una estrella de prioridad), filas densas en vez de cards.
-- **Port** (port.io) — confirmó convenciones generales del dominio (catálogo basado en entidades/blueprints, botones tipo pill), aunque su marketing actual no expone capturas reales del dashboard.
+- **Railway** (railway.com) — the closest functionally. Real pattern: a project/environment breadcrumb + **horizontal tabs** per section (Architecture/Observability/Logs/Settings), services as nodes on a canvas, a single live accent (violet) restricted to the primary CTA and the active state, a marketing-serif headline contrasting with sans product UI.
+- **Linear** (linear.app) — the reference for interface discipline. A simple sidebar, an almost-black base, color appearing *only* for specific functional signals (a priority star), dense rows instead of cards.
+- **Port** (port.io) — confirmed general domain conventions (an entity/blueprint-based catalog, pill-shaped buttons), though its current marketing doesn't show real dashboard screenshots.
 
-Este es el proceso a repetir para Argus, Siren, Themis y Athena cuando les toque: **2-3 referencias reales del dominio específico de ESE proyecto, con capturas, antes de proponer una dirección de diseño** — no "inspirado en" genérico, sino patrones concretos citables.
+This is the process to repeat for Argus, Siren, Themis and Athena when their turn comes: **2-3 real references from that specific project's domain, with screenshots, before proposing a design direction** — not a generic "inspired by," but concrete, citable patterns.
 
-## Janus — resultado final
+## Janus — final result
 
-- **Layout**: tabs horizontales (Catalog/Provisioning/Pipelines/Assistant) con breadcrumb-style header compacto, inspirado directamente en Railway — reemplaza el patrón hero+grid de Siegfried.
-- **Acento**: ámbar, restringido a subrayado de tab activo, botón primario, y puntos de estado — disciplina de Linear.
-- **Base**: grayscale neutro puro, igual que Siegfried — sin tinte de color en fondos/cards/bordes.
-- **Tipografía**: Fraunces (serif, itálica) solo para el wordmark/título, Plus Jakarta Sans para el resto de la UI — combinación inspirada en el contraste serif/sans de Railway, poco común, memorable.
-- **Modo**: oscuro por defecto (`defaultTheme="dark"`, sin sincronizar con el sistema) — identidad propia, distinta del light-first/system-synced de Siegfried.
-- **Forma**: radio de esquina moderado (`0.75rem`), sin exagerar.
+- **Layout**: horizontal tabs (Catalog/Provisioning/Pipelines/Assistant) with a compact breadcrumb-style header, directly inspired by Railway — replaces Siegfried's hero+grid pattern.
+- **Accent**: amber, restricted to the active tab's underline, the primary button, and status dots — Linear's discipline.
+- **Base**: pure neutral grayscale, same as Siegfried — no color tint on backgrounds/cards/borders.
+- **Typography**: Fraunces (serif, italic) for the wordmark/title only, Plus Jakarta Sans for the rest of the UI — a pairing inspired by Railway's serif/sans contrast, uncommon, memorable.
+- **Mode**: dark by default (`defaultTheme="dark"`, not synced with the system) — its own identity, distinct from Siegfried's light-first/system-synced default.
+- **Shape**: a moderate corner radius (`0.75rem`), not overdone.
 
-## Pendiente
+## Pending
 
-Argus, Siren, Themis y Athena todavía no tienen identidad visual propia definida — se diseñará cada una con este mismo proceso (benchmark real primero) cuando se empiece a construir ese proyecto.
+Argus, Siren, Themis and Athena still don't have their own visual identity defined — each will be designed with this same process (real benchmark first) once that project starts getting built.

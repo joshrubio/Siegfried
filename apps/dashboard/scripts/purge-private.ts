@@ -1,4 +1,4 @@
-// Uso único: borra de Supabase cualquier chunk ya indexado desde vault/private/.
+// One-time use: deletes from Supabase any chunk already indexed from vault/private/.
 import dotenv from "dotenv";
 import path from "node:path";
 dotenv.config({ path: path.join(__dirname, "..", ".env.local") });
@@ -16,7 +16,7 @@ async function main() {
     console.error("✗", error.message);
     process.exit(1);
   }
-  console.log(`✓ borradas ${data?.length ?? 0} filas de vault_chunks (note_path like 'private/%')`);
+  console.log(`✓ deleted ${data?.length ?? 0} rows from vault_chunks (note_path like 'private/%')`);
 }
 
 main().then(() => process.exit(0));

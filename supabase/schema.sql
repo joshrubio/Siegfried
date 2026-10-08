@@ -1,21 +1,21 @@
--- Ejecutar una vez en el SQL editor de Supabase (o vía `supabase db push`)
+-- Run once in Supabase's SQL editor (or via `supabase db push`)
 create extension if not exists vector;
 
 create table if not exists vault_chunks (
   id uuid primary key default gen_random_uuid(),
-  note_path text not null,          -- ruta relativa dentro de vault/, p.ej. "research/josh-profile.md"
+  note_path text not null,          -- relative path within vault/, e.g. "research/josh-profile.md"
   title text not null,
   type text not null,               -- research | project | decision | doc
   project text,
   tags text[],
   chunk_index int not null,
   content text not null,
-  embedding vector(1024),           -- ajustar dimensión según el modelo de embeddings elegido
+  embedding vector(1024),           -- adjust the dimension to match the chosen embeddings model
   updated_at timestamptz not null default now()
 );
 
--- RLS activado, sin policies: bloquea por defecto cualquier acceso vía anon/publishable key.
--- Nuestro código solo usa la secret key (lib/supabase.ts), que siempre se salta RLS.
+-- RLS enabled, no policies: blocks any access via the anon/publishable key by default.
+-- Our code only uses the secret key (lib/supabase.ts), which always bypasses RLS.
 alter table vault_chunks enable row level security;
 
 create index if not exists vault_chunks_embedding_idx
@@ -24,7 +24,7 @@ create index if not exists vault_chunks_embedding_idx
 create index if not exists vault_chunks_note_path_idx on vault_chunks (note_path);
 create index if not exists vault_chunks_project_idx on vault_chunks (project);
 
--- búsqueda semántica con filtro opcional por proyecto/tipo
+-- semantic search with an optional project/type filter
 create or replace function match_vault_chunks(
   query_embedding vector(1024),
   match_count int default 8,
@@ -55,13 +55,13 @@ as $$
   limit match_count;
 $$;
 
--- Registro operativo de los proyectos satélite (reemplaza projects.json como
--- fuente de verdad — local y un futuro deploy en la nube comparten el mismo estado).
+-- Operational record of the satellite projects (replaces projects.json as the
+-- source of truth — local and a future cloud deploy share the same state).
 create table if not exists satellite_projects (
   slug text primary key,
   name text not null,
-  concept text not null,            -- resumen corto para la card del dashboard
-  vault_note text,                  -- nota del vault con el spec completo
+  concept text not null,            -- short summary for the dashboard card
+  vault_note text,                  -- vault note with the full spec
   stage text not null default 'ideation'
     check (stage in ('ideation', 'production', 'launched')),
   checklist jsonb not null default '{
@@ -75,7 +75,7 @@ create table if not exists satellite_projects (
   local_path text,
   dev_url text,
   deploy_url text,
-  position int not null default 0,  -- orden dentro de su columna del kanban
+  position int not null default 0,  -- order within its kanban column
   updated_at timestamptz not null default now()
 );
 

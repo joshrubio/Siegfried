@@ -1,5 +1,5 @@
 ---
-title: Siegfried — dashboard base de desarrollo
+title: Siegfried — the development base dashboard
 type: project
 project: siegfried
 tags: [siegfried, platform-engineering, rag]
@@ -8,22 +8,22 @@ created: 2026-10-07
 updated: 2026-10-07
 ---
 
-## Qué es
+## What it is
 
-El "control plane" desde el que se investiga, documenta y lanza cada proyecto de la [[project-pool]]. No es un proyecto de la pool — es la base que los sostiene a todos, y en sí mismo es un ejercicio de Platform Engineering (ver la investigación de "Employer A" en `vault/private/`, alias explicado en `vault/private/employer-alias-map.md`).
+The "control plane" from which every project in the [[project-pool]] gets researched, documented, and launched. It isn't a project in the pool itself — it's the base that supports all of them, and it's itself an exercise in Platform Engineering (see the "Employer A" research in `vault/private/`, alias explained in `vault/private/employer-alias-map.md`).
 
-## Arquitectura
+## Architecture
 
-- `vault/` — notas markdown con frontmatter (esta misma colección de archivos)
-- `apps/dashboard/` — Next.js: visor del vault, buscador RAG, panel de proyectos satélite
-- `projects.json` — registro de cada proyecto satélite (repo, local path, deploy URL, estado)
-- RAG: Postgres + pgvector en Supabase (decisión del usuario, 2026-10-07) — local y nube comparten la misma base de datos en vivo
+- `vault/` — markdown notes with frontmatter (this same collection of files)
+- `apps/dashboard/` — Next.js: the vault viewer, RAG search, the satellite projects panel
+- `projects.json` — the registry of each satellite project (repo, local path, deploy URL, status)
+- RAG: Postgres + pgvector on Supabase (user decision, 2026-10-07) — local and cloud share the same live database
 
-## Decisiones
+## Decisions
 
-- Repos satélite viven como carpetas hermanas (`D:\Coding\<proyecto>`), no como submódulos — evita acoplamiento de historial git.
-- Hosting de repos: GitHub, cuenta personal `joshrubio`.
+- Satellite repos live as sibling folders (`D:\Coding\<project>`), not as submodules — avoids git history coupling.
+- Repo hosting: GitHub, personal account `joshrubio`.
 
-## Siguiente paso
+## Next step
 
-Ver [[project-siegfried-setup]] para el log de construcción.
+See [[project-siegfried-setup]] for the build log.

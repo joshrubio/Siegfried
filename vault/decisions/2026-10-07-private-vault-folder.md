@@ -1,5 +1,5 @@
 ---
-title: Decisión — vault/private/ gitignored para investigación de empleadores
+title: Decision — vault/private/ gitignored for employer research
 type: decision
 project: siegfried
 tags: [privacy, gitignore, vault]
@@ -8,14 +8,14 @@ created: 2026-10-07
 updated: 2026-10-07
 ---
 
-## Decisión
+## Decision
 
-Toda investigación sobre un empleador específico (p. ej. "Employer A" — ver `vault/private/employer-alias-map.md`, y cualquier futuro) vive en `vault/private/`, que está en `.gitignore`. Permanece en disco para seguir navegándola localmente y que el dashboard la siga mostrando, pero nunca se sube al repo de Siegfried.
+All research on a specific employer (e.g. "Employer A" — see `vault/private/employer-alias-map.md`, and any future one) lives in `vault/private/`, which is in `.gitignore`. It stays on disk so it can keep being browsed locally and the dashboard can keep showing it, but it never gets pushed to the Siegfried repo.
 
-## Por qué
+## Why
 
-No es información clasificada ni sensible en sentido legal — es investigación de búsqueda de empleo personal (estrategia de entrevista, lectura de vacantes, notas sobre un reclutador). No pertenece al historial de un repo de portafolio, ni siquiera privado: si el repo algún día se comparte, se hace público, o simplemente se quiere mostrar el código a alguien, esa carpeta no debe aparecer.
+It isn't classified or legally sensitive information — it's personal job-search research (interview strategy, reading job postings, notes on a recruiter). It doesn't belong in a portfolio repo's history, not even a private one: if the repo is ever shared, made public, or someone is simply shown the code, that folder shouldn't show up.
 
-## Nota sobre el historial de git
+## Note on git history
 
-Los 3 archivos de investigación del primer empleador estudiado ya estaban commiteados y pusheados a GitHub antes de esta decisión — moverlos y gitignorarlos detiene el tracking futuro, pero **el contenido sigue existiendo en el historial de commits anteriores** en `github.com/joshrubio/Siegfried`. Si se quiere purgar también del historial, hace falta reescribirlo (`git filter-repo` o similar) + force-push — no se hizo automáticamente porque es una operación destructiva que requiere confirmación explícita.
+The 3 research files for the first employer studied were already committed and pushed to GitHub before this decision — moving them and gitignoring them stops future tracking, but **the content still exists in earlier commits' history** on `github.com/joshrubio/Siegfried`. Purging it from history too would require rewriting it (`git filter-repo` or similar) + a force-push — this wasn't done automatically because it's a destructive operation that requires explicit confirmation.

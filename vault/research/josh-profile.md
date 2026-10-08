@@ -1,5 +1,5 @@
 ---
-title: Perfil de Josh Rubio (para matching de proyectos)
+title: Josh Rubio's profile (for project matching)
 type: research
 project: siegfried
 tags: [profile, skills]
@@ -10,11 +10,11 @@ source_urls:
   - https://www.joshrubio.es/
 ---
 
-## Título
+## Title
 
-UX Designer & Fullstack Developer. Base en Almería, España.
+UX Designer & Fullstack Developer. Based in Almería, Spain.
 
-## Stack técnico
+## Technical stack
 
 - Frontend: HTML, CSS, JavaScript, React, Svelte, Next.js
 - Backend: Node.js, Express, Python, PHP
@@ -22,13 +22,13 @@ UX Designer & Fullstack Developer. Base en Almería, España.
 - Infra/tools: Git, Docker, AWS, Heroku, RESTful APIs, GraphQL
 - Design: Google UX Design Professional cert, mobile app design (iOS/Android), brand identity
 
-## Experiencia
+## Experience
 
-- Design Lead en LifePoint Church (desde mar 2022)
-- Product Designer en Mokku y No Country (2025)
-- 3D Animator en Vene 3D (2016)
-- Educación: Ingeniería de Sistemas (IUTPJAA, 2014-2017)
+- Design Lead at LifePoint Church (since Mar 2022)
+- Product Designer at Mokku and No Country (2025)
+- 3D Animator at Vene 3D (2016)
+- Education: Systems Engineering (IUTPJAA, 2014-2017)
 
-## Diferenciador real frente a los empleadores investigados
+## Real differentiator versus the researched employers
 
-No tiene background en ML research, sistemas embebidos, Rust, ni infraestructura a escala (5+ años AWS/Terraform/K8s que piden las vacantes de "Employer A" — ver `vault/private/employer-alias-map.md`). **Sí tiene** UX aplicado a interfaces complejas + fullstack + capacidad de integrar IA (LLMs) en productos — ese es el ángulo honesto para cualquier proyecto de portafolio: construir la capa de experiencia/producto sobre un problema real del empleador, no fingir ser su ingeniero de ML o infra.
+No background in ML research, embedded systems, Rust, or infrastructure at scale (the 5+ years of AWS/Terraform/K8s that "Employer A"'s job postings ask for — see `vault/private/employer-alias-map.md`). **Does have** UX applied to complex interfaces + fullstack + the ability to integrate AI (LLMs) into products — that's the honest angle for any portfolio project: build the experience/product layer on top of a real employer problem, not pretend to be their ML or infra engineer.

@@ -8,45 +8,45 @@ created: 2026-10-07
 updated: 2026-10-08
 ---
 
-Proyecto satélite #2 de la [[project-pool]]. Repo propio: `github.com/joshrubio/Janus`, carpeta hermana `D:\Coding\Janus`.
+Satellite project #2 from the [[project-pool]]. Own repo: `github.com/joshrubio/Janus`, sibling folder `D:\Coding\Janus`.
 
-## Por qué el nombre
+## Why the name
 
-Janus — dios romano de las puertas, los umbrales y las transiciones. Encaja literalmente: este proyecto es la puerta de entrada a entornos, servicios y pipelines. Cada proyecto satélite tiene su propio nombre mitológico para que cada uno tenga identidad visual y de marca propia, distinguible de Siegfried a simple vista (ver [[2026-10-07-satellite-identities]]).
+Janus — Roman god of gates, thresholds, and transitions. A literal fit: this project is the entry gate to environments, services, and pipelines. Every satellite project gets its own mythological name so each has its own visual and brand identity, distinguishable from Siegfried at a glance (see [[2026-10-07-satellite-identities]]).
 
-## Qué es
+## What it is
 
-Un Internal Developer Platform (IDP) en miniatura — self-service tooling simulado para un equipo de ingeniería. Responde línea por línea a la descripción real de la vacante de Platform Engineering investigada en `vault/private/`: *"designing and deploying agentic AI workflows to streamline developer activities, infrastructure operations, and platform compliance"*.
+An Internal Developer Platform (IDP) in miniature — simulated self-service tooling for an engineering team. It answers, line by line, the real Platform Engineering job posting researched in `vault/private/`: *"designing and deploying agentic AI workflows to streamline developer activities, infrastructure operations, and platform compliance."*
 
-Siegfried mismo (ver [[project-siegfried]]) fue la primera iteración de este concepto, aplicado hacia adentro (vault + RAG + registro de proyectos). Janus es la versión aplicada hacia afuera: un portal que un equipo de ingeniería usaría de verdad.
+Siegfried itself (see [[project-siegfried]]) was the first iteration of this concept, applied inward (vault + RAG + project registry). Janus is the version applied outward: a portal an engineering team would actually use.
 
-## Identidad visual
+## Visual identity
 
-Base grayscale neutra, igual disciplina que Siegfried — la diferenciación vive en el acento (ámbar, restringido a estado activo/botón primario/puntos de estado, nunca fondos), la tipografía (Fraunces serif itálica para el wordmark + Plus Jakarta Sans para la UI), y el modo por defecto (oscuro, sin sincronizar con el sistema). Diseñado tras un benchmark real de Railway, Linear y Port (estructura del dashboard de pipelines) y, más tarde, de un dashboard CRM de referencia (estructura de la home) — nunca inventado desde cero ni copiado al pie de la letra, solo la gramática estructural. Detalle completo y el proceso a repetir para los demás satélites: [[2026-10-07-satellite-identities]] y [[satellite-engineering-patterns]].
+A neutral grayscale base, the same discipline as Siegfried — the differentiation lives in the accent (amber, restricted to active state/primary button/status dots, never backgrounds), the typography (Fraunces italic serif for the wordmark + Plus Jakarta Sans for the UI), and the default mode (dark, not synced with the system). Designed after a real benchmark of Railway, Linear, and Port (the pipelines dashboard's structure) and, later, a reference CRM dashboard (the home page's structure) — never invented from scratch or copied verbatim, only the structural grammar. Full detail and the process to repeat for the other satellites: [[2026-10-07-satellite-identities]] and [[satellite-engineering-patterns]].
 
-## Navegación y layout (revisado tras el primer pase)
+## Navigation and layout (revised after the first pass)
 
-El layout original (tabs horizontales + sin home propia) se reemplazó por uno más cercano a una IDP real:
+The original layout (horizontal tabs + no home of its own) was replaced with one closer to a real IDP:
 
-- **Header**: Catalog, Provisioning y Pipelines como nav persistente, junto al buscador (⌘K) y el wordmark.
-- **Home (`/`)**: un dashboard de verdad — stat cards con deltas, el gráfico de runs/día, desglose de servicios y confiabilidad, accesos directos a los 4 servicios. Comprimido en dos columnas (stat cards + chart a la izquierda, Services + Reliability apilados a la derecha) para que se pueda escanear sin hacer scroll.
-- **Assistant**: ya no es una quinta pestaña — es un rail de 48px que se expande con hover y se superpone al contenido (mismo patrón que el `VaultSidebar` de Siegfried, documentado en [[satellite-engineering-patterns]]), sin botón de cerrar. Sigue respondiendo a "Open Assistant" desde ⌘K y al tile del dashboard.
+- **Header**: Catalog, Provisioning, and Pipelines as persistent nav, alongside the search box (⌘K) and the wordmark.
+- **Home (`/`)**: a real dashboard — stat cards with deltas, the runs-per-day chart, a services and reliability breakdown, direct links to all 4 services. Compressed into two columns (stat cards + chart on the left, Services + Reliability stacked on the right) so it can be scanned without scrolling.
+- **Assistant**: no longer a fifth tab — it's a 48px rail that expands on hover and overlays the content (same pattern as Siegfried's `VaultSidebar`, documented in [[satellite-engineering-patterns]]), with no close button. Still responds to "Open Assistant" from ⌘K and to the dashboard tile.
 
-## Los 4 pilares
+## The 4 pillars
 
-1. **Catálogo de servicios** — lista de "servicios internos" simulados (nombre, owner, stack, estado, docs). El feature núcleo más simple de demostrar primero.
-2. **Provisionar entorno (self-service)** — formulario que simula aprovisionar infraestructura (elegir servicio + tipo de entorno → log de progreso simulado → URL/credenciales de salida). Nunca toca infraestructura real — es honesto sobre ser una simulación de UX, no un motor real de IaC.
-3. **Estado de pipelines** — vista de CI/CD simulada (runs con estado success/failed/running).
-4. **Chatbot agentic (RAG) sobre docs internas** — reutiliza el mismo patrón ya construido en Siegfried (Supabase + pgvector + Voyage embeddings), mismo stack dentro aplicado a la documentación de ESTE proyecto. Vive en el sidebar de Assistant, no en una ruta propia.
+1. **Service catalog** — a list of simulated "internal services" (name, owner, stack, status, docs). The simplest core feature to demo first.
+2. **Environment provisioning (self-service)** — a form that simulates provisioning infrastructure (pick a service + environment type → simulated progress log → output URL/credentials). Never touches real infrastructure — it's upfront about being a UX simulation, not a real IaC engine.
+3. **Pipeline status** — a simulated CI/CD view (runs with success/failed/running status).
+4. **Agentic (RAG) chatbot over internal docs** — reuses the same pattern already built in Siegfried (Supabase + pgvector + Voyage embeddings), the same stack applied to THIS project's own documentation. Lives in the Assistant sidebar, not its own route.
 
-## Honestidad del alcance
+## Honesty about scope
 
-Ningún pilar requiere fingir ser ingeniero de infraestructura real — todo es simulado/mockeado de forma transparente. El valor demostrado es: UX de self-service tooling + fullstack + aplicar IA (RAG) a un problema real de developer experience. Mismo ángulo que ya validamos para toda la pool en [[josh-profile]].
+No pillar requires pretending to be a real infrastructure engineer — everything is transparently simulated/mocked. The value demonstrated is: self-service tooling UX + fullstack + applying AI (RAG) to a real developer-experience problem. Same angle already validated for the whole pool in [[josh-profile]].
 
 ## Stack
 
-Mismo que Siegfried: Next.js (App Router) + TypeScript + Tailwind + shadcn/ui, para mantener velocidad de desarrollo y consistencia de patrones ya resueltos (RAG, Supabase, deploy). Repo independiente, sin dependencia de código con Siegfried — solo comparte el patrón, no librerías compartidas.
+Same as Siegfried: Next.js (App Router) + TypeScript + Tailwind + shadcn/ui, to keep development speed and consistency with already-solved patterns (RAG, Supabase, deploy). An independent repo, with no code dependency on Siegfried — it only shares the pattern, not shared libraries.
 
-## Progreso
+## Progress
 
-Ver la card de este proyecto en el dashboard de Siegfried (`/projects/janus`) para el estado operativo vivo (etapa, checklist, links). Esta nota es la spec de contenido; el dashboard es la fuente de verdad del estado.
+See this project's card on Siegfried's dashboard (`/projects/janus`) for live operational status (stage, checklist, links). This note is the content spec; the dashboard is the source of truth for status.

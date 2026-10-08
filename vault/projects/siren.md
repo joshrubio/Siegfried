@@ -1,5 +1,5 @@
 ---
-title: Siren (visor de clasificación acústica submarina) — spec
+title: Siren (underwater acoustic classification viewer) — spec
 type: project
 project: lura-acoustic-viewer
 tags: [ml-interpretation, audio, classifier, honest-framing]
@@ -8,41 +8,41 @@ created: 2026-10-08
 updated: 2026-10-08
 ---
 
-Proyecto satélite #3 de la [[project-pool]]. Repo propio: `github.com/joshrubio/Siren`, carpeta hermana `D:\Coding\Siren`.
+Satellite project #3 from the [[project-pool]]. Own repo: `github.com/joshrubio/Siren`, sibling folder `D:\Coding\Siren`.
 
-## Por qué el nombre
+## Why the name
 
-Las sirenas de la mitología griega, conocidas por su canto — encaje directo con firmas *acústicas*. Identidad propia frente a Janus y Siegfried, mismo criterio documentado en [[2026-10-07-satellite-identities]].
+The sirens of Greek mythology, known for their song — a direct fit with *acoustic* signatures. Its own identity versus Janus and Siegfried, same criteria documented in [[2026-10-07-satellite-identities]].
 
-## Qué es
+## What it is
 
-Una capa de interpretación/UX sobre la salida de un clasificador de audio real — **no** un proyecto de ingeniería de ML. Responde al ángulo de vigilancia acústica submarina sin pretender ser una competencia que Josh no tiene: el valor demostrado es tomar la predicción + confianza de un modelo y convertirla en algo que un analista pueda leer e interpretar rápido, con sus límites expuestos en vez de ocultos.
+An interpretation/UX layer over the output of a real audio classifier — **not** a machine-learning engineering project. It answers the underwater-acoustic-surveillance angle without pretending to a competency Josh doesn't have: the value demonstrated is taking a model's prediction + confidence and turning it into something an analyst can read and interpret quickly, with its limits exposed rather than hidden.
 
-## Datos: DeepShip, no ShipsEar
+## Data: DeepShip, not ShipsEar
 
-Se evaluaron dos datasets reales de ruido de buques. ShipsEar (Universidad de Vigo) exige pedir acceso completo por email — solo ofrece una muestra genérica pública. **DeepShip** (Jalkanen et al., citado en papers 2024-2026) tiene una porción sustancial directamente en GitHub sin gate: 24 grabaciones reales usadas (6 por clase — Cargo, Tanker, Passenger, Tug), descargadas en dos rondas con confirmación explícita del usuario cada vez.
+Two real vessel-noise datasets were evaluated. ShipsEar (University of Vigo) requires requesting full access by email — it only offers a generic public sample. **DeepShip** (Jalkanen et al., cited in 2024-2026 papers) has a substantial portion directly on GitHub with no gate: 24 real recordings used (6 per class — Cargo, Tanker, Passenger, Tug), downloaded in two rounds, with the user's explicit confirmation each time.
 
 ## Pipeline (offline, Python — `scripts/preprocess.py`)
 
-1. Trocea cada grabación en ventanas de 6s (con solape 3s solo en archivos de entrenamiento, para más datos sin tocar el test).
-2. Por ventana: espectrograma mel (colormap magma, estándar del dominio) → PNG; MFCC + delta-MFCC + forma espectral (centroide, ancho de banda, rolloff, zero-crossing, contraste) → vector de features; clip de audio a 11025Hz/16-bit para reproducción en el navegador (la clasificación usa 22050Hz completo — el downsample es solo para no commitear 220MB de wav).
-3. Split train/test **a nivel de archivo**, no de ventana — ningún archivo aporta ventanas a ambos lados. Evita el leakage que infla la accuracy artificialmente (ver el paper "UniqueShip" citado en la UI de `/model`).
-4. Compara Random Forest vs. SVM (RBF) en el test real; se queda con el mejor (SVM, 56.6%).
-5. Escribe `lib/clips-index.json` (una fila por ventana: clase real, predicha, confianza por clase, rutas a espectrograma/audio) y `lib/metrics.json` (accuracy, precision/recall/F1 por clase, matriz de confusión) — todo estático, sin base de datos ni inferencia en vivo.
+1. Slices each recording into 6s windows (with 3s overlap only on training files, for more data without touching the test set).
+2. Per window: a mel spectrogram (magma colormap, the domain standard) → PNG; MFCC + delta-MFCC + spectral shape (centroid, bandwidth, rolloff, zero-crossing, contrast) → feature vector; an audio clip at 11025Hz/16-bit for browser playback (classification uses the full 22050Hz — the downsample is just to avoid committing 220MB of wav files).
+3. Train/test split **at the file level**, not the window level — no file contributes windows to both sides. Avoids the leakage that artificially inflates accuracy (see the "UniqueShip" paper cited in the `/model` UI).
+4. Compares Random Forest vs. SVM (RBF) on the real test set; keeps the better one (SVM, 56.6%).
+5. Writes `lib/clips-index.json` (one row per window: true class, predicted class, per-class confidence, spectrogram/audio paths) and `lib/metrics.json` (accuracy, per-class precision/recall/F1, confusion matrix) — all static, no database or live inference.
 
-## La app
+## The app
 
-- `/` — Explorer master-detail: lista filtrable (por clase, solo test, solo mal clasificadas) + panel de detalle con espectrograma, reproductor, barras de confianza por clase y desglose de energía por banda de frecuencia.
-- `/model` — números honestos: accuracy real, tabla por clase, matriz de confusión como heatmap, y una sección explicando por qué Tanker da 0% de recall (poca variación de buques en entrenamiento, no un bug).
+- `/` — a master-detail Explorer: a filterable list (by class, test-only, misclassified-only) + a detail panel with the spectrogram, a player, per-class confidence bars, and a frequency-band energy breakdown.
+- `/model` — honest numbers: real accuracy, a per-class table, a confusion matrix as a heatmap, and a section explaining why Tanker gets 0% recall (too little vessel variation in training, not a bug).
 
-## Identidad visual
+## Visual identity
 
-Benchmark contra herramientas de análisis de audio reales — editor espectral de iZotope RX, displays de sonar tipo waterfall — en vez de reskinnear Janus o Siegfried. Fondo casi negro puro, acento cian restringido a señales funcionales, IBM Plex Sans/Mono, radio de esquina más cerrado (look de panel de instrumento). Detalle del proceso: [[2026-10-07-satellite-identities]].
+Benchmarked against real audio-analysis tools — iZotope RX's spectral editor, sonar waterfall-style displays — instead of reskinning Janus or Siegfried. A near-pure-black background, a cyan accent restricted to functional signals, IBM Plex Sans/Mono, a tighter corner radius (instrument-panel look). Process detail: [[2026-10-07-satellite-identities]].
 
-## Honestidad del alcance
+## Honesty about scope
 
-El modelo es genuinamente mediocre en una clase (Tanker) y la UI lo dice explícitamente en vez de maquillarlo — es parte de la propuesta de valor, no un defecto a esconder. Ver [[satellite-engineering-patterns]] para el patrón general de honestidad en datos/modelos simulados o reales entre satélites.
+The model is genuinely mediocre on one class (Tanker) and the UI says so explicitly instead of papering over it — it's part of the value proposition, not a flaw to hide. See [[satellite-engineering-patterns]] for the general pattern of honesty around simulated or real data/models across satellites.
 
-## Progreso
+## Progress
 
-Ver la card de este proyecto en el dashboard de Siegfried (`/projects/lura-acoustic-viewer`) para el estado operativo vivo. Esta nota es la spec de contenido; el dashboard es la fuente de verdad del estado.
+See this project's card on Siegfried's dashboard (`/projects/lura-acoustic-viewer`) for live operational status. This note is the content spec; the dashboard is the source of truth for status.

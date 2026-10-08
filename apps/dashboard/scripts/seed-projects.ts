@@ -1,5 +1,5 @@
-// Uso único: siembra satellite_projects con las 5 ideas de la pool.
-// No toca Voyage (no hay embeddings aquí) — seguro de correr sin límite de tokens.
+// One-time use: seeds satellite_projects with the pool's 5 ideas.
+// Doesn't touch Voyage (no embeddings here) — safe to run with no token limit concerns.
 import dotenv from "dotenv";
 import path from "node:path";
 dotenv.config({ path: path.join(__dirname, "..", ".env.local") });
@@ -10,7 +10,7 @@ const seed = [
     slug: "altra-dashboard-concept",
     name: "Common Operational Picture",
     concept:
-      "Dashboard tipo C2: fusiona feeds simulados (drones, sensores, amenazas) en un mapa en tiempo real con panel de IA que prioriza/recomienda acciones.",
+      "A C2-style dashboard: fuses simulated feeds (drones, sensors, threats) on a real-time map with an AI panel that prioritizes/recommends actions.",
     vault_note: "projects/project-pool",
     local_path: "../altra-dashboard-concept",
   },
@@ -18,7 +18,7 @@ const seed = [
     slug: "dev-platform-portal",
     name: "Developer Platform Portal",
     concept:
-      "Portal self-service con asistente agentic (RAG): catálogo de servicios, 'provisionar entorno', estado de pipelines, chatbot sobre docs internas.",
+      "A self-service portal with an agentic (RAG) assistant: service catalog, 'provision an environment,' pipeline status, a chatbot over internal docs.",
     vault_note: "projects/project-pool",
     local_path: "../dev-platform-portal",
   },
@@ -26,7 +26,7 @@ const seed = [
     slug: "lura-acoustic-viewer",
     name: "Lura acoustic signature viewer",
     concept:
-      "Clasificador/visor de firmas acústicas submarinas sobre datasets públicos reales (ShipsEar/DeepShip) — la capa de interpretación/UX de un modelo, no el modelo mismo.",
+      "A classifier/viewer for underwater acoustic signatures over real public datasets (ShipsEar/DeepShip) — the interpretation/UX layer over a model, not the model itself.",
     vault_note: "projects/project-pool",
     local_path: "../lura-acoustic-viewer",
   },
@@ -34,7 +34,7 @@ const seed = [
     slug: "compliance-assistant-demo",
     name: "CMMC/NIST compliance assistant",
     concept:
-      "Escanea config/IaC de ejemplo y usa un LLM para señalar huecos de cumplimiento en lenguaje claro, con un dashboard de hallazgos.",
+      "Scans example config/IaC and uses an LLM to flag compliance gaps in plain language, with a findings dashboard.",
     vault_note: "projects/project-pool",
     local_path: "../compliance-assistant-demo",
   },
@@ -42,7 +42,7 @@ const seed = [
     slug: "swarm-mission-planner",
     name: "Drone swarm mission planner",
     concept:
-      "Planificador de misión para enjambres de drones: waypoints, cobertura y simulación de coordinación multi-dron sobre un mapa.",
+      "A mission planner for drone swarms: waypoints, coverage, and simulated multi-drone coordination on a map.",
     vault_note: "projects/project-pool",
     local_path: "../swarm-mission-planner",
   },

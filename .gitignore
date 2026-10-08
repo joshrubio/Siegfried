@@ -5,11 +5,11 @@ node_modules/
 .DS_Store
 *.log
 
-# Investigación sobre empleadores específicos (alias en vault/private/employer-alias-map.md) —
-# vive en disco para seguir navegándola localmente, pero nunca se sube al repo.
+# Research on specific employers (aliased in vault/private/employer-alias-map.md) —
+# stays on disk to keep browsing it locally, but never gets pushed to the repo.
 vault/private/
 
-# Material de estudio para una entrevista real con un empleador específico —
-# usa nombres reales a propósito (es para practicar vocabulario real), por eso
-# nunca se sube, igual que vault/private/.
+# Study material for a real interview with a specific employer —
+# uses real names on purpose (it's for practicing real vocabulary), which is why
+# it's never pushed, same as vault/private/.
 guides/

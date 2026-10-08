@@ -1,32 +1,32 @@
 # Siegfried
 
-Dashboard operativo: vault de memoria con frontmatter + búsqueda RAG + kanban de proyectos satélite (ideación → producción → lanzamiento). Ver [`vault/docs/vault-conventions.md`](vault/docs/vault-conventions.md) para cómo está organizado el contenido.
+Operational dashboard: a markdown-with-frontmatter memory vault + RAG search + a kanban of satellite projects (ideation → production → launched). See [`vault/docs/vault-conventions.md`](vault/docs/vault-conventions.md) for how the content is organized.
 
-## Estructura
+## Structure
 
 ```
 Siegfried/
-├── vault/              # memoria en markdown + frontmatter (research, projects, decisions, docs, private/ gitignored)
-├── guides/             # material de estudio para entrevista (gitignored — usa nombres reales a propósito)
-├── apps/dashboard/     # Next.js — vault + buscador RAG + kanban de proyectos + página de detalle por proyecto
-├── supabase/schema.sql # esquema Postgres + pgvector + satellite_projects (ejecutar en el SQL editor de Supabase)
+├── vault/              # markdown + frontmatter memory (research, projects, decisions, docs, private/ gitignored)
+├── guides/             # interview study material (gitignored — uses real names on purpose)
+├── apps/dashboard/     # Next.js — vault + RAG search + project kanban + a detail page per project
+├── supabase/schema.sql # Postgres schema + pgvector + satellite_projects (run in Supabase's SQL editor)
 └── .env.example
 ```
 
-## Proyectos satélite
+## Satellite projects
 
-Cada proyecto de la pool (ver `vault/projects/project-pool.md`) vive en su propio repositorio, como carpeta hermana de `Siegfried/` en disco — nunca anidado ni como submódulo. El estado operativo (etapa, checklist, links) vive en la tabla `satellite_projects` de Supabase — no en un archivo local — para que local y un futuro deploy en la nube compartan el mismo estado en vivo.
+Each project in the pool (see `vault/projects/project-pool.md`) lives in its own repository, as a sibling folder to `Siegfried/` on disk — never nested or as a submodule. Operational status (stage, checklist, links) lives in Supabase's `satellite_projects` table — not a local file — so local and a future cloud deploy share the same live state.
 
-## Setup local
+## Local setup
 
-1. `cp .env.example .env.local` y rellenar las claves de Supabase + Voyage (ver abajo).
+1. `cp .env.example .env.local` and fill in the Supabase + Voyage keys (see below).
 2. `cd apps/dashboard && npm install && npm run dev`
 
 ## Supabase
 
-1. Crear un proyecto en Supabase (ya hecho — cuenta conectada a GitHub).
-2. Pegar `SUPABASE_URL` / `SUPABASE_SECRET_KEY` en `.env.local` — usamos el formato de API key **nuevo** de Supabase (`sb_secret_...`), no el `service_role` JWT legacy que Supabase está deprecando (ver [`vault/decisions/2026-10-07-supabase-key-format.md`](vault/decisions/2026-10-07-supabase-key-format.md)).
-3. Ejecutar `supabase/schema.sql` en el SQL editor del proyecto (activa `pgvector`, crea `vault_chunks` + `match_vault_chunks`, y `satellite_projects`). No hace falta connection string — todo pasa por el cliente JS de Supabase (REST/RPC).
-4. `npm run seed-projects` (una vez) para poblar `satellite_projects` con la pool inicial de 5 ideas.
-5. `npm run index` para indexar el vault (consume tokens de Voyage AI — pausar entre notas por el rate limit del free tier, ver `scripts/index.ts`). `vault/private/` nunca se indexa.
-6. Local y producción apuntan a la misma instancia — no hay paso de sincronización manual.
+1. Create a Supabase project (already done — account connected to GitHub).
+2. Paste `SUPABASE_URL` / `SUPABASE_SECRET_KEY` into `.env.local` — we use Supabase's **new** API key format (`sb_secret_...`), not the legacy `service_role` JWT that Supabase is deprecating (see [`vault/decisions/2026-10-07-supabase-key-format.md`](vault/decisions/2026-10-07-supabase-key-format.md)).
+3. Run `supabase/schema.sql` in the project's SQL editor (enables `pgvector`, creates `vault_chunks` + `match_vault_chunks`, and `satellite_projects`). No connection string needed — everything goes through Supabase's JS client (REST/RPC).
+4. `npm run seed-projects` (once) to populate `satellite_projects` with the initial pool of 5 ideas.
+5. `npm run index` to index the vault (uses Voyage AI tokens — pauses between notes for the free tier's rate limit, see `scripts/index.ts`). `vault/private/` is never indexed.
+6. Local and production point at the same instance — there's no manual sync step.

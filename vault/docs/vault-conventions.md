@@ -1,5 +1,5 @@
 ---
-title: Convenciones del vault
+title: Vault conventions
 type: doc
 project: siegfried
 tags: [docs, conventions, frontmatter]
@@ -8,47 +8,47 @@ created: 2026-10-07
 updated: 2026-10-08
 ---
 
-## Estructura de carpetas
+## Folder structure
 
 ```
 vault/
-├── research/   # hallazgos de investigación generales (perfil, arquitectura)
-├── private/    # investigación sobre empleadores específicos (alias "Employer A", "B"... — ver vault/private/employer-alias-map.md) — GITIGNORED,
-│               # vive solo en disco local, nunca se sube al repo (ver vault/decisions/2026-10-07-private-vault-folder.md)
-├── projects/   # specs y estado de cada proyecto (pool + siegfried mismo)
-├── decisions/  # bitácora de decisiones técnicas, una por archivo, fecha en el nombre
-└── docs/       # esta carpeta — documentación de cómo funciona Siegfried mismo
+├── research/   # general research findings (profile, architecture)
+├── private/    # research on specific employers (aliased "Employer A", "B"... — see vault/private/employer-alias-map.md) — GITIGNORED,
+│               # stays local-disk only, never pushed to the repo (see vault/decisions/2026-10-07-private-vault-folder.md)
+├── projects/   # specs and status for each project (the pool + Siegfried itself)
+├── decisions/  # log of technical decisions, one per file, dated in the filename
+└── docs/       # this folder — documentation on how Siegfried itself works
 ```
 
-## Qué va en `private/`
+## What goes in `private/`
 
-Cualquier nota que investigue a un empleador específico (su stack, sus vacantes, estrategia de entrevista) — no porque sea secreto, sino porque es información de búsqueda de empleo personal que no pertenece en el historial de un repo, ni siquiera privado. Todo lo demás (arquitectura, perfil propio, decisiones técnicas) sigue en el resto del vault y sí se versiona.
+Any note researching a specific employer (their stack, their job postings, interview strategy) — not because it's secret, but because it's personal job-search information that doesn't belong in a repo's history, not even a private one. Everything else (architecture, one's own profile, technical decisions) stays in the rest of the vault and is version-controlled.
 
-## Frontmatter obligatorio
+## Required frontmatter
 
 ```yaml
 ---
-title: <nombre legible>
+title: <human-readable name>
 type: research | project | decision | doc
-project: <slug del proyecto al que pertenece, o "siegfried">
-tags: [lista, de, tags]
+project: <slug of the project it belongs to, or "siegfried">
+tags: [list, of, tags]
 status: active | in-progress | final | archived
 created: YYYY-MM-DD
 updated: YYYY-MM-DD
-source_urls:          # opcional, solo si type: research
+source_urls:          # optional, only if type: research
   - https://...
 ---
 ```
 
-`type` y `project` son los dos campos que el indexador RAG usa para filtrar búsquedas (p. ej. "solo notas de type:research sobre project:lura-acoustic-viewer").
+`type` and `project` are the two fields the RAG indexer uses to filter searches (e.g. "only type:research notes about project:lura-acoustic-viewer").
 
-## Enlaces entre notas
+## Links between notes
 
-`[[nombre-de-archivo-sin-extension]]` — igual que el sistema de memoria. El indexador los resuelve a links reales en el dashboard; una nota enlazada que todavía no existe no es un error, es una nota pendiente de escribir.
+`[[filename-without-extension]]` — same as the memory system. The indexer resolves them to real links in the dashboard; a linked note that doesn't exist yet isn't an error, it's a note still to be written.
 
-## Cuándo añadir una nota aquí vs. en el repo de un proyecto satélite
+## When to add a note here vs. in a satellite project's own repo
 
-- Vault de Siegfried: todo lo que es investigación, decisión o contexto *compartido* entre proyectos, o sobre Siegfried mismo.
-- Repo del proyecto satélite: todo lo que es específico de ESE proyecto una vez empieza a construirse (su propio README, su propia carpeta `docs/` si la necesita, su código).
+- Siegfried's vault: anything that's research, a decision, or context *shared* across projects, or about Siegfried itself.
+- A satellite project's repo: anything specific to THAT project once it starts being built (its own README, its own `docs/` folder if it needs one, its code).
 
-Esta carpeta (`docs/`) se va completando a medida que Siegfried crece. Ver [[rag-indexing]] para cómo funciona el indexador RAG, y [[satellite-engineering-patterns]] para los patrones técnicos y de diseño que se repiten entre proyectos satélite (Cache Components, sidebars plegables, datos precalculados, trampas de lint, benchmark de identidad visual).
+This folder (`docs/`) keeps filling in as Siegfried grows. See [[rag-indexing]] for how the RAG indexer works, and [[satellite-engineering-patterns]] for the technical and design patterns that recur across satellite projects (Cache Components, collapsible sidebars, precomputed data, lint traps, visual-identity benchmarking).

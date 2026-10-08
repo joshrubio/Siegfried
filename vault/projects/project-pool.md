@@ -1,5 +1,5 @@
 ---
-title: Pool de proyectos candidatos
+title: Candidate project pool
 type: project
 project: siegfried
 tags: [pool, ideas]
@@ -8,23 +8,23 @@ created: 2026-10-07
 updated: 2026-10-08
 ---
 
-Cinco ideas de proyecto, investigadas a partir de los productos reales y las vacantes publicadas de "Employer A" (alias — ver `vault/private/employer-alias-map.md` para la conexión completa). Cada una, al construirse, vive en su propio repositorio bajo GitHub (joshrubio), con su propio nombre mitológico e identidad visual (ver [[2026-10-07-satellite-identities]]), y se registra en la tabla `satellite_projects` de Supabase.
+Five project ideas, researched from the real products and published job postings of "Employer A" (alias — see `vault/private/employer-alias-map.md` for the full connection). Once built, each one lives in its own repository under GitHub (joshrubio), with its own mythological name and visual identity (see [[2026-10-07-satellite-identities]]), and is tracked in Supabase's `satellite_projects` table.
 
 ## 1. Argus — Common Operational Picture
-Dashboard tipo C2: fusiona feeds simulados (drones, sensores, amenazas) en un mapa en tiempo real con panel de IA que prioriza/recomienda acciones, inspirado en la interfaz de operador de su plataforma de C2. Stack: Next.js + Mapbox/deck.gl + WebSockets + datos sintéticos (nunca reales). Nombre: el gigante de cien ojos — vigilancia total.
+A C2-style dashboard: fuses simulated feeds (drones, sensors, threats) on a real-time map with an AI panel that prioritizes/recommends actions, inspired by the operator interface of their C2 platform. Stack: Next.js + Mapbox/deck.gl + WebSockets + synthetic (never real) data. Name: the hundred-eyed giant — total surveillance.
 
-## 2. Janus — Developer Platform Portal con asistente agentic (RAG) — ✅ CONSTRUIDO
-Portal self-service: catálogo de servicios, "provisionar entorno", estado de pipelines, chatbot RAG sobre docs. Responde línea por línea a la descripción de su rol de Platform Engineering. Repo: [`Janus`](https://github.com/joshrubio/Janus). Identidad benchmarkeada contra Linear (tokens, radio) y contra un dashboard CRM de referencia para la home. Dashboard propio en `/` con stats, gráfico de runs/día y accesos a los 4 servicios; Catalog/Provisioning/Pipelines en el header, Assistant como sidebar plegable. (Siegfried mismo es la primera iteración de este concepto — ver [[project-siegfried]]). Spec completa: [[janus]]. Nombre: dios romano de las puertas y transiciones — el portal de entrada.
+## 2. Janus — Developer Platform Portal with an agentic (RAG) assistant — ✅ BUILT
+A self-service portal: service catalog, "provision an environment," pipeline status, a RAG chatbot over docs. Answers, line by line, the description of their Platform Engineering role. Repo: [`Janus`](https://github.com/joshrubio/Janus). Identity benchmarked against real Linear (tokens, radius) and against a reference CRM dashboard for the home page. A real dashboard at `/` with stats, a runs-per-day chart, and links to all 4 services; Catalog/Provisioning/Pipelines in the header, Assistant as a collapsible sidebar. (Siegfried itself was the first iteration of this concept — see [[project-siegfried]]). Full spec: [[janus]]. Name: the Roman god of gates and transitions — the entry portal.
 
-## 3. Siren — visor de firmas acústicas submarinas — ✅ CONSTRUIDO
-Usa **DeepShip** (24 grabaciones reales, Cargo/Tanker/Passenger/Tug — ShipsEar exigía pedir acceso por email, DeepShip tiene una porción descargable directo de GitHub). Pipeline Python offline (`scripts/preprocess.py`): espectrogramas mel, features MFCC/spectral, SVM entrenado con split a nivel de archivo (no de ventana, para evitar leakage) — 56.6% de accuracy real sobre 4 clases. Visor master-detail con espectrograma, confianza por clase y desglose de bandas de frecuencia; página `/model` honesta sobre por qué Tanker da 0% de recall. Honesto: no se pretende ser ingeniero de ML, se construye la capa de interpretación/UX del output del modelo. Identidad benchmarkeada contra iZotope RX y displays de sonar — negro puro, acento cian, IBM Plex. Repo: [`Siren`](https://github.com/joshrubio/Siren). Spec completa: [[siren]]. Nombre: las sirenas, conocidas por su canto — encaja con firmas *acústicas*.
+## 3. Siren — underwater acoustic-signature viewer — ✅ BUILT
+Uses **DeepShip** (24 real recordings, Cargo/Tanker/Passenger/Tug — ShipsEar required requesting access by email, DeepShip has a portion downloadable directly from GitHub). An offline Python pipeline (`scripts/preprocess.py`): mel spectrograms, MFCC/spectral features, an SVM trained with a file-level split (not window-level, to avoid leakage) — 56.6% real accuracy across 4 classes. A master-detail viewer with spectrogram, per-class confidence, and frequency-band breakdown; an honest `/model` page on why Tanker gets 0% recall. Honest: it doesn't pretend to be an ML engineering project, it builds the interpretation/UX layer over the model's output. Identity benchmarked against iZotope RX and sonar displays — pure black, cyan accent, IBM Plex. Repo: [`Siren`](https://github.com/joshrubio/Siren). Full spec: [[siren]]. Name: the sirens, known for their song — a fit for *acoustic* signatures.
 
-## 4. Themis — asistente de cumplimiento CMMC/NIST automatizado
-Escanea config/IaC de ejemplo, usa LLM para señalar huecos de cumplimiento en lenguaje claro + dashboard, inspirado en su rol de DevSecOps. Más débil (dominio no es fuerte de Josh). Nombre: diosa griega de la ley divina y la justicia — la balanza, símbolo clásico de auditoría.
+## 4. Themis — automated CMMC/NIST compliance assistant
+Scans example config/IaC, uses an LLM to flag compliance gaps in plain language + a dashboard, inspired by their DevSecOps role. Weaker (not Josh's strong domain). Name: the Greek goddess of divine law and justice — the scale, a classic symbol of auditing.
 
-## 5. Athena — planificador de misión para enjambre de drones
-Mapa para definir waypoints, cobertura y simular coordinación multi-dron, inspirado en su dron autónomo y su plataforma de C2. Visualmente atractivo, menos anclado a una vacante específica. Nombre: diosa de la guerra estratégica y la táctica — planificación, no combate bruto.
+## 5. Athena — drone swarm mission planner
+A map for defining waypoints, coverage, and simulating multi-drone coordination, inspired by their autonomous drone and C2 platform. Visually appealing, less anchored to a specific job posting. Name: goddess of strategic warfare and tactics — planning, not brute combat.
 
-## Estado de construcción
+## Build status
 
-Ver la tabla `satellite_projects` en Supabase (vía el dashboard de Siegfried, `/projects/<slug>`) para el registro vivo de repos/URLs/estado de cada uno.
+See the `satellite_projects` table in Supabase (via Siegfried's dashboard, `/projects/<slug>`) for the live record of each one's repos/URLs/status.

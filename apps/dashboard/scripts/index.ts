@@ -1,5 +1,5 @@
-// Uso: npm run index  (desde apps/dashboard)
-// Lee vault/**.md, parte cada nota en chunks, genera embeddings y hace upsert en Supabase.
+// Usage: npm run index  (from apps/dashboard)
+// Reads vault/**.md, splits each note into chunks, generates embeddings, and upserts to Supabase.
 import dotenv from "dotenv";
 import path from "node:path";
 dotenv.config({ path: path.join(__dirname, "..", ".env.local") });
@@ -8,15 +8,15 @@ import { embed } from "../lib/embeddings";
 import { getSupabaseServerClient } from "../lib/supabase";
 
 function chunkContent(content: string): string[] {
-  // Troceo simple por encabezado ## — suficiente mientras las notas sean cortas.
+  // Simple chunking by ## heading — good enough while notes stay short.
   const sections = content.split(/\n(?=## )/g).map((s) => s.trim()).filter(Boolean);
   return sections.length > 0 ? sections : [content.trim()];
 }
 
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
-// Sin tarjeta en Voyage el rate limit es 3 req/min — reintenta con espera en vez
-// de fallar. Los tokens gratis (200M) aplican igual, esto solo pacea las llamadas.
+// With no card on file, Voyage's rate limit is 3 req/min — retry with a wait instead
+// of failing. The free tokens (200M) still apply either way, this just paces the calls.
 async function embedWithRetry(chunks: string[], attempt = 1): Promise<number[][]> {
   try {
     return await embed(chunks);
@@ -24,7 +24,7 @@ async function embedWithRetry(chunks: string[], attempt = 1): Promise<number[][]
     const message = err instanceof Error ? err.message : String(err);
     if (message.includes("429") && attempt <= 5) {
       const waitMs = 22_000;
-      console.log(`  … rate limit, esperando ${waitMs / 1000}s (intento ${attempt}/5)`);
+      console.log(`  … rate limited, waiting ${waitMs / 1000}s (attempt ${attempt}/5)`);
       await sleep(waitMs);
       return embedWithRetry(chunks, attempt + 1);
     }
@@ -33,15 +33,15 @@ async function embedWithRetry(chunks: string[], attempt = 1): Promise<number[][]
 }
 
 async function main() {
-  // vault/private/ nunca se indexa: es investigación de empleadores que se
-  // gitignoreó a propósito — no debe acabar en una base de datos consultable
-  // (local o en la nube) ni en el buscador del dashboard.
+  // vault/private/ is never indexed: it's employer research that's deliberately
+  // gitignored — it shouldn't end up in a queryable database (local or cloud)
+  // or in the dashboard's search.
   const notes = listNotes().filter((n) => !n.slug.startsWith("private/"));
   const supabase = getSupabaseServerClient();
 
   for (const note of notes) {
     const chunks = chunkContent(note.content);
-    await sleep(21_000); // paceo preventivo: free tier sin tarjeta = 3 req/min
+    await sleep(21_000); // preventive pacing: free tier with no card on file = 3 req/min
     const embeddings = await embedWithRetry(chunks);
 
     await supabase.from("vault_chunks").delete().eq("note_path", note.slug);
