@@ -17,7 +17,9 @@ export default function AppShell({
 
   return (
     <>
-      <Header onMenuClick={() => setMobileOpen((v) => !v)} />
+      <Suspense fallback={<div className="h-14 border-b" />}>
+        <Header onMenuClick={() => setMobileOpen((v) => !v)} />
+      </Suspense>
       <div className="flex flex-1">
         <Suspense fallback={<Skeleton className="w-64 h-[calc(100vh-56px)]" />}>
           <VaultSidebar

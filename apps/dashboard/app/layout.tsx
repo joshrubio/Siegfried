@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
@@ -34,7 +35,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body className="min-h-full flex flex-col">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
           <AppShell grouped={grouped}>{children}</AppShell>
-          <Footer />
+          <Suspense fallback={<div className="h-10 border-t" />}>
+            <Footer />
+          </Suspense>
           <Toaster position="bottom-right" />
         </ThemeProvider>
       </body>
