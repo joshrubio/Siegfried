@@ -5,10 +5,10 @@ project: siegfried
 tags: [docs, patterns, nextjs, gotchas, design]
 status: active
 created: 2026-10-08
-updated: 2026-10-08
+updated: 2026-10-20
 ---
 
-Things that kept recurring while building Janus and Siren, worth starting out already knowing next time (Argus, Themis, Athena) instead of rediscovering them.
+Things that kept recurring while building Janus, Siren, and Themis, worth starting out already knowing next time (Argus, Athena) instead of rediscovering them.
 
 ## Next.js 16 + Cache Components
 
@@ -17,7 +17,14 @@ Every satellite uses `cacheComponents: true` in `next.config.ts` (aggressive pre
 - Any component using `usePathname()`, `params`, or `redirect()` needs a `<Suspense>` around it — otherwise the build fails with prerendering errors. Pattern used across all three projects: wrap the specific component (`<Suspense fallback={...}><HeaderNav /></Suspense>`), not the whole page.
 - `export const runtime = "nodejs"` on a route handler is **incompatible** with `cacheComponents: true` — and isn't needed anyway, nodejs is the default runtime.
 - After editing many files in a row, Turbopack sometimes serves stale cache (route types, CSS). If something doesn't reflect the change: kill the process on the port, `rm -rf .next`, restart `npm run dev`. Happened several times across all three projects, always fixed this way.
-- After deleting `.next`, a standalone `npx tsc --noEmit` can fail with `Cannot find name 'LayoutProps'` — it's the global type Next regenerates in `.next/types`. Not a real error; run `npm run build` (or `next dev` for a moment) and check again.
+- After deleting `.next`, a standalone `npx tsc --noEmit` can fail with `Cannot find name 'LayoutProps'` (or `PageProps`) — it's the global type Next regenerates in `.next/types`. Fastest fix: `npx next typegen` (a dedicated command, no full build needed), then re-run `tsc`. A page/layout component that forwards `params`/`searchParams` to a child by re-annotating the child's props with the same `PageProps<"/route">` type will fail if the JSX call site only passes some of those props (e.g. `params` but not `searchParams`) — type the child's prop narrowly instead, e.g. `{ params: PageProps<"/route">["params"] }`.
+- `proxy.ts` is the Next 16 convention replacing `middleware.ts` (the exported function must be named `proxy`, not `middleware`) — using it from the start avoids a build-time deprecation warning that showed up on Siren.
+
+## `create-next-app` leaves zombie npx processes (happened on Siren and Themis)
+
+After scaffolding visibly completes, the `npx create-next-app` process (and its child) can stay alive holding a lock on the project folder, silently blocking every subsequent `npm install` in that directory — symptom: a backgrounded install produces zero output and no `node.exe` ever spawns. Fix: `Get-CimInstance Win32_Process -Filter "Name='node.exe'" | Select-Object ProcessId, CommandLine | Where-Object {$_.CommandLine -match '<ProjectName>'}`, then `taskkill //PID <id> //F` on both the npx wrapper and the create-next-app child, then retry the install. Worth checking for this *before* assuming a slow-disk install is just slow.
+
+Related: running two `npm install` invocations concurrently in the same project (e.g. a leftover scaffold install racing a dependency install) can corrupt the dependency tree in a way that only surfaces later, as a postinstall script failing with a missing-module error for an unrelated transitive dependency (seen on Themis: `unrs-resolver`'s postinstall couldn't find `napi-postinstall`, even though neither package was the one actually being installed). The fix isn't to debug that specific error — it's to confirm only one `npm install` is running against the project at a time, then re-run `npm install` with no arguments to repair the tree.
 
 ## The no-jump collapsible sidebar pattern (used three times now)
 
