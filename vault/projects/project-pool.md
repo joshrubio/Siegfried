@@ -22,8 +22,8 @@ Uses **DeepShip** (24 real recordings, Cargo/Tanker/Passenger/Tug — ShipsEar r
 ## 4. Themis — automated CMMC/NIST compliance assistant — ✅ BUILT
 Scans five deliberately-misconfigured IaC examples (Terraform, Dockerfile, Kubernetes), uses Groq to flag compliance gaps against real NIST SP 800-171 Rev 2 control numbers, in a Checkov-style scan log with Wiz-style finding detail pages, plus a live paste-and-scan feature. Inspired by their DevSecOps role. Repo: [`Themis`](https://github.com/joshrubio/Themis). Identity benchmarked against Wiz (finding-card metadata grid) and Checkov (terminal scan-log format) — single monospace typeface, zero radius, violet accent. Full spec: [[themis]]. Name: the Greek goddess of divine law and justice — the scale, a classic symbol of auditing.
 
-## 5. Athena — drone swarm mission planner
-A map for defining waypoints, coverage, and simulating multi-drone coordination, inspired by their autonomous drone and C2 platform. Visually appealing, less anchored to a specific job posting. Name: goddess of strategic warfare and tactics — planning, not brute combat.
+## 5. Athena — drone swarm mission planner — ✅ BUILT
+A real MapLibre map over a free basemap: waypoint and coverage-area drawing, a real boustrophedon coverage-path algorithm (Turf.js) that splits lanes across a fleet, a client-side kinematic simulation with play/scrub/speed controls, and a ground-truth panel pulling real nearby public photos from Mapillary's Image Radius Search. Inspired by their autonomous drone and C2 platform. Repo: [`Athena`](https://github.com/joshrubio/Athena). Identity benchmarked against QGroundControl (tool-strip/editor-panel/bottom-stats grammar) and DJI FlightHub 2 (floating glass KPI tiles, compass/zoom cluster) — near-black radar-scope backdrop, phosphor-green accent, Space Grotesk + Space Mono. Full spec: [[athena]]. Name: goddess of strategic warfare and tactics — planning, not brute combat.
 
 ## Build status
 

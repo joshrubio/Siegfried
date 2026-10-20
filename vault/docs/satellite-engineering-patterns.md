@@ -8,7 +8,7 @@ created: 2026-10-08
 updated: 2026-10-20
 ---
 
-Things that kept recurring while building Janus, Siren, and Themis, worth starting out already knowing next time (Argus, Athena) instead of rediscovering them.
+Things that kept recurring while building Janus, Siren, Themis, and Athena, worth starting out already knowing next time (Argus) instead of rediscovering them.
 
 ## Next.js 16 + Cache Components
 
@@ -25,6 +25,18 @@ Every satellite uses `cacheComponents: true` in `next.config.ts` (aggressive pre
 After scaffolding visibly completes, the `npx create-next-app` process (and its child) can stay alive holding a lock on the project folder, silently blocking every subsequent `npm install` in that directory — symptom: a backgrounded install produces zero output and no `node.exe` ever spawns. Fix: `Get-CimInstance Win32_Process -Filter "Name='node.exe'" | Select-Object ProcessId, CommandLine | Where-Object {$_.CommandLine -match '<ProjectName>'}`, then `taskkill //PID <id> //F` on both the npx wrapper and the create-next-app child, then retry the install. Worth checking for this *before* assuming a slow-disk install is just slow.
 
 Related: running two `npm install` invocations concurrently in the same project (e.g. a leftover scaffold install racing a dependency install) can corrupt the dependency tree in a way that only surfaces later, as a postinstall script failing with a missing-module error for an unrelated transitive dependency (seen on Themis: `unrs-resolver`'s postinstall couldn't find `napi-postinstall`, even though neither package was the one actually being installed). The fix isn't to debug that specific error — it's to confirm only one `npm install` is running against the project at a time, then re-run `npm install` with no arguments to repair the tree.
+
+## A "hung" install can just be one very slow disk read (Athena)
+
+Before concluding an install is genuinely stuck and killing it, check CPU time across *two* spaced-out readings, not one. On this disk, a single already-cached package read logged by `npm --loglevel verbose` took up to 19 seconds — a quick CPU check can easily land twice inside that one read's window and show identical, unchanging CPU time, looking exactly like a true hang. Killing and retrying in that state just restarts the same slow work from scratch. Only treat it as a real hang if CPU time is still unchanged after several minutes, not after one check.
+
+## MapLibre GL JS + Turbopack (Athena)
+
+Three real gotchas showed up getting a real interactive map (not a design placeholder) working:
+
+1. **Worker fails to load, in both dev and production builds.** `maplibre-gl`'s default `new Worker(new URL('./maplibre-gl-worker...', import.meta.url))` path doesn't resolve under Turbopack — the browser reports "Worker failed to load" / a non-JS MIME type, and the map silently never fetches its style. Fix: copy `node_modules/maplibre-gl/dist/maplibre-gl-worker.mjs` into `public/`, then call `maplibregl.setWorkerUrl("/maplibre-gl-worker.mjs")` at module scope before the first `new maplibregl.Map(...)` — confirmed via `maplibregl.getWorkerUrl()` logging that the config value actually took effect before chasing it further. Exclude that vendored file from eslint (it's minified, not source) via `globalIgnores` in `eslint.config.mjs`.
+2. **The map container collapses to zero height even though its own parent is sized correctly.** maplibre-gl's own stylesheet sets `.maplibregl-map { position: relative }` on the container element (it adds that class itself), which silently overrides a Tailwind `absolute` utility class on the same div — `inset-0` then does nothing, and the element collapses to its (empty) content height. Give the map container `h-full w-full` instead of `absolute inset-0`; let an already-`position:relative` ancestor (or a wrapping div you do control) handle the absolute positioning of sibling overlay panels.
+3. **Drone/marker objects silently stop updating after a dev remount.** React 18 StrictMode double-invokes effects once in dev, destroying and recreating the `Map` instance. A `markersRef` (or similar) that isn't cleared in that same cleanup keeps stale entries from the destroyed map, so a `!markersRef.current.has(id)` guard skips recreating them for the new map — markers silently never appear, with no error. Clear/remove tracked objects in the *same* cleanup function that calls `map.remove()`, not a separate effect.
 
 ## The no-jump collapsible sidebar pattern (used three times now)
 
