@@ -5,10 +5,16 @@ project: siegfried
 tags: [docs, patterns, nextjs, gotchas, design]
 status: active
 created: 2026-10-08
-updated: 2026-10-20
+updated: 2026-10-25
 ---
 
-Things that kept recurring while building Janus, Siren, Themis, and Athena, worth starting out already knowing next time (Argus) instead of rediscovering them.
+Things that kept recurring while building Janus, Siren, Themis, Athena, and Argus — now all five pool ideas are built, so this is the reference for the next thing, not for "the next satellite."
+
+## Delegating a whole satellite build to a remote cloud agent (Argus)
+
+Argus was the first satellite built by dispatching a single Agent call with `isolation: "remote"` instead of building it directly in the local session. It worked well, with one structural requirement: **the remote environment has no access to this vault, this repo, or any local file** — it's a genuinely separate sandbox. The prompt had to restate the entire playbook inline (the Next.js 16 + Cache Components pattern, the exact auth-gate file contents, every gotcha already written down here) rather than pointing at `vault/docs/satellite-engineering-patterns.md` the way an in-session agent could. A prompt that just says "follow the usual pattern" will fail silently in a remote agent — there is no "usual" it can see.
+
+What came back for free: the remote agent's git worktree synced back to a local folder (`D:\Coding\<Project>`) automatically once it finished, so the finished build was immediately inspectable and runnable locally, exactly like a build done in-session — the only extra step needed was registering it in `satellite_projects` and writing its vault note, both of which still require local/vault access the remote agent never had.
 
 ## Next.js 16 + Cache Components
 
